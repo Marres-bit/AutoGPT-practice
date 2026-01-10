@@ -179,3 +179,9 @@ autogpt_platform/backend/settings.py
 .test-contents
 .claude/settings.local.json
 /autogpt_platform/backend/logs
+
+# Medical Agent
+medical_lessons.db
+medical_lessons.db-journal
+*.db
+*.db-journal
