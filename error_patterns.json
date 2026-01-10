@@ -1,0 +1,18 @@
+{
+  "loss_patterns": [
+    {
+      "type": "NEGATIVE_MARKET_LARGE_LOSS",
+      "market_sum": -1.8,
+      "loss": -122.5,
+      "timestamp": "2026-01-10T13:00:00Z"
+    }
+  ],
+  "market_conditions": {},
+  "timing_issues": [],
+  "asset_specific": {
+    "SOL": {
+      "losses": 4,
+      "total": 4
+    }
+  }
+}

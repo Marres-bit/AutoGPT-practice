@@ -1,0 +1,54 @@
+[
+  {
+    "timestamp": "2026-01-10T13:00:00Z",
+    "asset": "SOL",
+    "pnl": -122.5,
+    "entry_price": 1000,
+    "exit_price": 965,
+    "market_conditions": {
+      "BTC": -0.5,
+      "ETH": 0.2,
+      "SOL": -1.5
+    },
+    "lesson": "\u00c9viter SOL quand le march\u00e9 est n\u00e9gatif (-1.5%) | Perte trop importante sur SOL - r\u00e9duire l'exposition"
+  },
+  {
+    "timestamp": "2026-01-10T14:00:00Z",
+    "asset": "SOL",
+    "pnl": -87.5,
+    "entry_price": 1000,
+    "exit_price": 975,
+    "market_conditions": {
+      "BTC": 0.3,
+      "ETH": 0.5,
+      "SOL": 1.8
+    },
+    "lesson": "Perte trop importante sur SOL - r\u00e9duire l'exposition"
+  },
+  {
+    "timestamp": "2026-01-10T15:00:00Z",
+    "asset": "SOL",
+    "pnl": -105.0,
+    "entry_price": 1000,
+    "exit_price": 970,
+    "market_conditions": {
+      "BTC": 0.3,
+      "ETH": 0.5,
+      "SOL": 1.8
+    },
+    "lesson": "Perte trop importante sur SOL - r\u00e9duire l'exposition"
+  },
+  {
+    "timestamp": "2026-01-10T16:00:00Z",
+    "asset": "SOL",
+    "pnl": -122.5,
+    "entry_price": 1000,
+    "exit_price": 965,
+    "market_conditions": {
+      "BTC": 0.3,
+      "ETH": 0.5,
+      "SOL": 1.8
+    },
+    "lesson": "Perte trop importante sur SOL - r\u00e9duire l'exposition"
+  }
+]
