@@ -1,14 +1,13 @@
-Résumé cycle - 2026-01-10T12:19:58.758470Z
-Top hausses: {'ETH': 1.85}
-Top baisses: {'SOL': -0.07}
+Résumé cycle #1 - 2026-01-10T17:57:41.143356Z
+Condition marché: sideways_market
+Stratégie: Default_Conservative_Strategy
+Top hausses: {'ETH': 1.45}
+Top baisses: {'SOL': -1.62}
 Décision: OPEN_LONG
-Trade simulé: {"asset": "ETH", "entry_price": 996.38, "exit_price": 1002.92, "amount": 1843.29, "pnl": 12.1, "withdrawn_to_principal": 2.42, "confidence": 0.6, "learning_approved": true}
-Capital: {"principal": 3102.51, "investment": 7382.84}
+Trade: BTC P&L=$6.92
+Capital: Principal=$3117.16 Investment=$7441.44
 
-📊 Apprentissage:
-  - Win Rate: 60.0%
-  - Trades totaux: 10
-  - Leçons apprises: 1
-  - Niveau de risque: 0.50
-  - Dernières leçons:
-    • Ne pas ouvrir de position quand le marché global est négatif
+📊 Performance:
+  Win Rate: 66.7%
+  Total Trades: 12
+  Niveau Risque: 0.60

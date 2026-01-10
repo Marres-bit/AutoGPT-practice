@@ -1,0 +1,54 @@
+{
+  "date": "2026-01-10",
+  "trades": [
+    {
+      "asset": "BTC",
+      "entry_price": 998.95,
+      "exit_price": 1008.24,
+      "amount": 743.59,
+      "pnl": 6.92,
+      "withdrawn_to_principal": 1.38,
+      "strategy_used": "Default_Conservative_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 0.7875000000000001,
+      "timestamp": "2026-01-10T17:57:41.143042"
+    }
+  ],
+  "total_pnl": 6.92,
+  "winning_trades": 1,
+  "losing_trades": 0,
+  "best_trade": {
+    "asset": "BTC",
+    "entry_price": 998.95,
+    "exit_price": 1008.24,
+    "amount": 743.59,
+    "pnl": 6.92,
+    "withdrawn_to_principal": 1.38,
+    "strategy_used": "Default_Conservative_Strategy",
+    "fusion_confidence": 0.5,
+    "learning_confidence": 0.7875000000000001,
+    "timestamp": "2026-01-10T17:57:41.143042",
+    "performance_pct": 0.0009315985472261843
+  },
+  "worst_trade": {
+    "asset": "BTC",
+    "entry_price": 998.95,
+    "exit_price": 1008.24,
+    "amount": 743.59,
+    "pnl": 6.92,
+    "withdrawn_to_principal": 1.38,
+    "strategy_used": "Default_Conservative_Strategy",
+    "fusion_confidence": 0.5,
+    "learning_confidence": 0.7875000000000001,
+    "timestamp": "2026-01-10T17:57:41.143042",
+    "performance_pct": 0.0009315985472261843
+  },
+  "strategies_used": {
+    "Default_Conservative_Strategy": {
+      "count": 1,
+      "wins": 1,
+      "win_rate": 1.0
+    }
+  },
+  "adaptations_made": []
+}

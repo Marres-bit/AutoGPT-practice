@@ -1,0 +1,21 @@
+[
+  {
+    "timestamp": "2026-01-10T17:57:41.143365",
+    "trade_id": "2026-01-10T17:57:41.143042",
+    "asset": "BTC",
+    "pnl": 6.92,
+    "entry_price": 998.95,
+    "exit_price": 1008.24,
+    "market_conditions": {
+      "BTC": 1.36,
+      "ETH": 1.45,
+      "SOL": -1.62
+    },
+    "errors_identified": [],
+    "lessons": [
+      "Trade gagnant - renforcer ce pattern"
+    ],
+    "avoidable": false,
+    "improvement_score": 0.0
+  }
+]

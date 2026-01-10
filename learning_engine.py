@@ -1,12 +1,13 @@
 """
 Moteur d'apprentissage permanent pour l'agent AI
 Analyse les erreurs, identifie les patterns et ajuste la stratégie automatiquement
+Version améliorée avec auto-amélioration continue et analyse post-trade avancée
 """
 import json
 from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Any
-from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Dict, List, Any, Tuple
+from collections import defaultdict, Counter
 
 
 class LearningEngine:
@@ -23,10 +24,18 @@ class LearningEngine:
         self.learning_file = self.project_root / "learning_state.json"
         self.mistakes_log = self.project_root / "mistakes_log.json"
         self.patterns_file = self.project_root / "error_patterns.json"
+        self.post_trade_analysis_file = self.project_root / "post_trade_analysis.json"
+        self.recurring_errors_file = self.project_root / "recurring_errors.json"
+        self.invalid_signals_file = self.project_root / "invalid_signals.json"
+        self.avoidable_losses_file = self.project_root / "avoidable_losses.json"
         
         self.state = self._load_state()
         self.mistakes = self._load_mistakes()
         self.patterns = self._load_patterns()
+        self.post_trade_analyses = self._load_post_trade_analyses()
+        self.recurring_errors = self._load_recurring_errors()
+        self.invalid_signals = self._load_invalid_signals()
+        self.avoidable_losses = self._load_avoidable_losses()
     
     def _load_state(self) -> Dict:
         """Charge l'état d'apprentissage ou initialise"""
@@ -104,6 +113,76 @@ class LearningEngine:
                 json.dump(self.patterns, f, indent=2)
         except Exception as e:
             print(f"⚠️ Erreur sauvegarde patterns: {e}")
+    
+    def _load_post_trade_analyses(self) -> List[Dict]:
+        """Charge les analyses post-trade"""
+        if self.post_trade_analysis_file.exists():
+            try:
+                with open(self.post_trade_analysis_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return []
+    
+    def _save_post_trade_analyses(self):
+        """Sauvegarde les analyses post-trade"""
+        try:
+            with open(self.post_trade_analysis_file, "w", encoding="utf-8") as f:
+                json.dump(self.post_trade_analyses[-200:], f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Erreur sauvegarde analyses: {e}")
+    
+    def _load_recurring_errors(self) -> Dict:
+        """Charge les erreurs récurrentes"""
+        if self.recurring_errors_file.exists():
+            try:
+                with open(self.recurring_errors_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return {"error_types": {}, "patterns": [], "last_updated": None}
+    
+    def _save_recurring_errors(self):
+        """Sauvegarde les erreurs récurrentes"""
+        try:
+            self.recurring_errors["last_updated"] = datetime.utcnow().isoformat()
+            with open(self.recurring_errors_file, "w", encoding="utf-8") as f:
+                json.dump(self.recurring_errors, f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Erreur sauvegarde erreurs récurrentes: {e}")
+    
+    def _load_invalid_signals(self) -> List[Dict]:
+        """Charge les signaux invalides détectés"""
+        if self.invalid_signals_file.exists():
+            try:
+                with open(self.invalid_signals_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return []
+    
+    def _save_invalid_signals(self):
+        """Sauvegarde les signaux invalides"""
+        try:
+            with open(self.invalid_signals_file, "w", encoding="utf-8") as f:
+                json.dump(self.invalid_signals[-100:], f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Erreur sauvegarde signaux invalides: {e}")
+    
+    def _load_avoidable_losses(self) -> Dict:
+        """Charge l'analyse des pertes évitables"""
+        if self.avoidable_losses_file.exists():
+            try:
+                with open(self.avoidable_losses_file, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return {
+            "total_avoidable": 0,
+            "total_amount": 0,
+            "categories": {},
+            "improvements_suggested": []
+        }
     
     def analyze_trade(self, summary: Dict) -> Dict[str, Any]:
         """
@@ -408,4 +487,379 @@ class LearningEngine:
             "risk_level": self.state.get("risk_level", 0.5),
             "min_gain_threshold": self.state.get("min_gain_to_open", 0.5),
             "recent_lessons": self.state.get("lessons_learned", [])[-5:]
+        }    
+    # ═══════════════════════════════════════════════════════════
+    # NOUVELLES FONCTIONNALITÉS D'AUTO-AMÉLIORATION
+    # ═══════════════════════════════════════════════════════════
+    
+    def perform_post_trade_analysis(self, trade_result: Dict, market: Dict) -> Dict:
+        """
+        Analyse post-trade complète pour identifier les améliorations
+        
+        Args:
+            trade_result: Résultat du trade avec tous les détails
+            market: État du marché au moment du trade
+        
+        Returns:
+            Analyse complète avec recommandations
+        """
+        analysis = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "trade_id": trade_result.get("timestamp", "unknown"),
+            "asset": trade_result.get("asset"),
+            "pnl": trade_result.get("pnl", 0),
+            "entry_price": trade_result.get("entry_price"),
+            "exit_price": trade_result.get("exit_price"),
+            "market_conditions": market.copy(),
+            "errors_identified": [],
+            "lessons": [],
+            "avoidable": False,
+            "improvement_score": 0.0
         }
+        
+        pnl = trade_result.get("pnl", 0)
+        asset = trade_result.get("asset")
+        entry = trade_result.get("entry_price", 0)
+        exit = trade_result.get("exit_price", 0)
+        
+        # Analyse seulement si perte
+        if pnl >= 0:
+            analysis["lessons"].append("Trade gagnant - renforcer ce pattern")
+            self.post_trade_analyses.append(analysis)
+            self._save_post_trade_analyses()
+            return analysis
+        
+        # 1️⃣ Identifier les erreurs de timing
+        asset_movement = market.get(asset, 0)
+        
+        if asset_movement < -1 and pnl < 0:
+            analysis["errors_identified"].append({
+                "type": "timing_error",
+                "description": f"Entrée alors que {asset} était en baisse ({asset_movement:.2f}%)",
+                "severity": "high",
+                "avoidable": True
+            })
+            analysis["avoidable"] = True
+            analysis["lessons"].append(f"Éviter d'entrer sur {asset} quand mouvement < -1%")
+        
+        # 2️⃣ Identifier les signaux invalides
+        market_sentiment = sum(market.values()) / len(market) if market else 0
+        
+        if market_sentiment < -1 and pnl < 0:
+            analysis["errors_identified"].append({
+                "type": "invalid_signal",
+                "description": f"Trade durant marché négatif (sentiment: {market_sentiment:.2f}%)",
+                "severity": "high",
+                "avoidable": True
+            })
+            analysis["avoidable"] = True
+            analysis["lessons"].append("Ne jamais trader quand le marché global est négatif")
+            
+            # Enregistrer le signal invalide
+            self.invalid_signals.append({
+                "timestamp": analysis["timestamp"],
+                "asset": asset,
+                "market_sentiment": market_sentiment,
+                "pnl": pnl,
+                "reason": "negative_market_sentiment"
+            })
+            self._save_invalid_signals()
+        
+        # 3️⃣ Détecter les pertes évitables
+        if entry > 0 and exit > 0:
+            price_drop = ((exit - entry) / entry) * 100
+            
+            if price_drop < -5:
+                analysis["errors_identified"].append({
+                    "type": "avoidable_loss",
+                    "description": f"Chute importante du prix: {price_drop:.2f}%",
+                    "severity": "critical",
+                    "avoidable": True
+                })
+                analysis["avoidable"] = True
+                analysis["lessons"].append(f"Stop-loss trop large pour {asset} - réduire à 3%")
+                
+                # Enregistrer la perte évitable
+                category = "large_drawdown"
+                self.avoidable_losses["total_avoidable"] += 1
+                self.avoidable_losses["total_amount"] += abs(pnl)
+                
+                if category not in self.avoidable_losses["categories"]:
+                    self.avoidable_losses["categories"][category] = {"count": 0, "total_loss": 0}
+                
+                self.avoidable_losses["categories"][category]["count"] += 1
+                self.avoidable_losses["categories"][category]["total_loss"] += abs(pnl)
+                
+                self._save_avoidable_losses()
+        
+        # 4️⃣ Identifier les biais stratégiques
+        if asset in self.patterns.get("asset_specific", {}):
+            asset_stats = self.patterns["asset_specific"][asset]
+            if asset_stats["total"] >= 3:
+                loss_rate = asset_stats["losses"] / asset_stats["total"]
+                
+                if loss_rate > 0.60:
+                    analysis["errors_identified"].append({
+                        "type": "strategic_bias",
+                        "description": f"Asset {asset} a un taux de perte de {loss_rate:.1%}",
+                        "severity": "medium",
+                        "avoidable": True
+                    })
+                    analysis["avoidable"] = True
+                    analysis["lessons"].append(f"Biais négatif confirmé sur {asset} - réduire exposition")
+        
+        # 5️⃣ Calculer le score d'amélioration
+        # Plus le score est élevé, plus il y a de marge d'amélioration
+        if analysis["avoidable"]:
+            analysis["improvement_score"] = min(
+                len(analysis["errors_identified"]) * 0.3 + abs(pnl) / 100,
+                1.0
+            )
+        
+        # Enregistrer l'analyse
+        self.post_trade_analyses.append(analysis)
+        self._save_post_trade_analyses()
+        
+        # Mettre à jour les erreurs récurrentes
+        self._update_recurring_errors(analysis)
+        
+        # Générer des recommandations d'amélioration
+        if analysis["errors_identified"]:
+            self._generate_improvement_recommendations(analysis)
+        
+        return analysis
+    
+    def _update_recurring_errors(self, analysis: Dict):
+        """Met à jour le suivi des erreurs récurrentes"""
+        for error in analysis.get("errors_identified", []):
+            error_type = error["type"]
+            
+            if error_type not in self.recurring_errors["error_types"]:
+                self.recurring_errors["error_types"][error_type] = {
+                    "count": 0,
+                    "total_loss": 0,
+                    "severity_distribution": Counter(),
+                    "first_seen": datetime.utcnow().isoformat(),
+                    "last_seen": None
+                }
+            
+            self.recurring_errors["error_types"][error_type]["count"] += 1
+            self.recurring_errors["error_types"][error_type]["total_loss"] += abs(analysis.get("pnl", 0))
+            self.recurring_errors["error_types"][error_type]["severity_distribution"][error["severity"]] += 1
+            self.recurring_errors["error_types"][error_type]["last_seen"] = datetime.utcnow().isoformat()
+        
+        self._save_recurring_errors()
+    
+    def _generate_improvement_recommendations(self, analysis: Dict):
+        """Génère des recommandations d'amélioration basées sur l'analyse"""
+        recommendations = []
+        
+        for error in analysis.get("errors_identified", []):
+            error_type = error["type"]
+            
+            if error_type == "timing_error":
+                recommendations.append({
+                    "type": "rule_modification",
+                    "priority": "high",
+                    "action": "Ajouter filtre: ne pas entrer si mouvement asset < -1%",
+                    "expected_impact": "Réduction des pertes de timing de ~30%"
+                })
+            
+            elif error_type == "invalid_signal":
+                recommendations.append({
+                    "type": "signal_filtering",
+                    "priority": "critical",
+                    "action": "Bloquer trading si sentiment marché < -1%",
+                    "expected_impact": "Élimination des trades en marché baissier"
+                })
+            
+            elif error_type == "avoidable_loss":
+                recommendations.append({
+                    "type": "risk_adjustment",
+                    "priority": "high",
+                    "action": "Réduire stop-loss de 5% à 3%",
+                    "expected_impact": "Protection contre drawdowns importants"
+                })
+            
+            elif error_type == "strategic_bias":
+                recommendations.append({
+                    "type": "asset_filtering",
+                    "priority": "medium",
+                    "action": f"Blacklister temporairement {analysis.get('asset')}",
+                    "expected_impact": "Éviter assets à biais négatif confirmé"
+                })
+        
+        # Ajouter aux suggestions d'amélioration
+        for rec in recommendations:
+            if rec not in self.avoidable_losses.get("improvements_suggested", []):
+                self.avoidable_losses.setdefault("improvements_suggested", []).append(rec)
+        
+        self._save_avoidable_losses()
+    
+    def detect_recurring_errors(self, min_occurrences: int = 3) -> List[Dict]:
+        """
+        Détecte les erreurs qui se répètent
+        
+        Args:
+            min_occurrences: Nombre minimum d'occurrences pour considérer comme récurrent
+        
+        Returns:
+            Liste des erreurs récurrentes avec détails
+        """
+        recurring = []
+        
+        for error_type, stats in self.recurring_errors.get("error_types", {}).items():
+            if stats["count"] >= min_occurrences:
+                recurring.append({
+                    "error_type": error_type,
+                    "occurrences": stats["count"],
+                    "total_loss": round(stats["total_loss"], 2),
+                    "avg_loss": round(stats["total_loss"] / stats["count"], 2),
+                    "severity": max(stats["severity_distribution"], key=stats["severity_distribution"].get),
+                    "first_seen": stats["first_seen"],
+                    "last_seen": stats["last_seen"]
+                })
+        
+        # Trier par nombre d'occurrences
+        recurring.sort(key=lambda x: x["occurrences"], reverse=True)
+        
+        return recurring
+    
+    def auto_modify_trading_rules(self) -> Dict:
+        """
+        Modifie automatiquement les règles de trading basé sur les analyses
+        
+        Returns:
+            Dict avec les modifications effectuées
+        """
+        modifications = {
+            "timestamp": datetime.utcnow().isoformat(),
+            "rules_modified": [],
+            "new_filters_added": [],
+            "parameters_adjusted": [],
+            "justifications": []
+        }
+        
+        # Analyser les erreurs récurrentes
+        recurring_errors = self.detect_recurring_errors(min_occurrences=3)
+        
+        for error in recurring_errors:
+            error_type = error["error_type"]
+            
+            # 1️⃣ Modifier les règles selon le type d'erreur
+            if error_type == "timing_error" and error["occurrences"] >= 3:
+                # Augmenter le seuil d'entrée
+                old_threshold = self.state.get("min_gain_to_open", 0.5)
+                new_threshold = min(old_threshold + 0.3, 2.0)
+                self.state["min_gain_to_open"] = new_threshold
+                
+                modifications["parameters_adjusted"].append({
+                    "parameter": "min_gain_to_open",
+                    "old_value": old_threshold,
+                    "new_value": new_threshold,
+                    "reason": f"Erreur de timing récurrente ({error['occurrences']}x)"
+                })
+                modifications["justifications"].append(
+                    f"Seuil d'entrée augmenté de {old_threshold}% à {new_threshold}% pour réduire erreurs de timing"
+                )
+            
+            elif error_type == "invalid_signal" and error["occurrences"] >= 3:
+                # Ajouter un filtre de sentiment de marché
+                if "BLOCK_NEGATIVE_MARKET" not in self.state.get("avoid_patterns", []):
+                    self.state.setdefault("avoid_patterns", []).append("BLOCK_NEGATIVE_MARKET")
+                    
+                    modifications["new_filters_added"].append({
+                        "filter": "BLOCK_NEGATIVE_MARKET",
+                        "condition": "market_sentiment < -1%",
+                        "reason": f"Signaux invalides récurrents ({error['occurrences']}x)"
+                    })
+                    modifications["justifications"].append(
+                        f"Ajout filtre bloquant trading en marché négatif (erreurs: {error['occurrences']}x, pertes: ${error['total_loss']:.2f})"
+                    )
+            
+            elif error_type == "avoidable_loss" and error["occurrences"] >= 4:
+                # Resserrer le stop-loss
+                old_stop = self.state.get("max_loss_threshold", -50.0)
+                new_stop = max(old_stop + 10, -25.0)  # Resserrer progressivement
+                self.state["max_loss_threshold"] = new_stop
+                
+                modifications["parameters_adjusted"].append({
+                    "parameter": "max_loss_threshold",
+                    "old_value": old_stop,
+                    "new_value": new_stop,
+                    "reason": f"Pertes évitables récurrentes ({error['occurrences']}x)"
+                })
+                modifications["justifications"].append(
+                    f"Stop-loss resserré de {old_stop} à {new_stop} pour limiter drawdowns (pertes évitées: ${error['total_loss']:.2f})"
+                )
+            
+            elif error_type == "strategic_bias":
+                # Augmenter la prudence sur certains assets
+                modifications["rules_modified"].append({
+                    "rule": "asset_filtering_enhanced",
+                    "description": "Augmentation période d'observation avant trading asset à biais négatif",
+                    "reason": f"Biais stratégique détecté ({error['occurrences']}x)"
+                })
+        
+        # 2️⃣ Ajustements basés sur les pertes évitables
+        avoidable_ratio = 0
+        if self.state.get("total_trades", 0) > 0:
+            avoidable_count = self.avoidable_losses.get("total_avoidable", 0)
+            avoidable_ratio = avoidable_count / self.state["total_trades"]
+        
+        if avoidable_ratio > 0.30:  # Plus de 30% des pertes sont évitables
+            # Réduire le niveau de risque global
+            old_risk = self.state.get("risk_level", 0.5)
+            new_risk = max(old_risk - 0.15, 0.3)
+            self.state["risk_level"] = new_risk
+            
+            modifications["parameters_adjusted"].append({
+                "parameter": "risk_level",
+                "old_value": old_risk,
+                "new_value": new_risk,
+                "reason": f"Taux de pertes évitables élevé: {avoidable_ratio:.1%}"
+            })
+            modifications["justifications"].append(
+                f"Réduction risque global: {avoidable_ratio:.1%} des trades sont des pertes évitables"
+            )
+        
+        # Sauvegarder les changements
+        if modifications["rules_modified"] or modifications["new_filters_added"] or modifications["parameters_adjusted"]:
+            self._save_state()
+            
+            # Logger les modifications
+            print(f"\n🔧 Modifications automatiques des règles de trading:")
+            for justif in modifications["justifications"]:
+                print(f"   ✓ {justif}")
+        
+        return modifications
+    
+    def get_improvement_metrics(self) -> Dict:
+        """Retourne des métriques d'amélioration du système"""
+        total_trades = self.state.get("total_trades", 0)
+        
+        return {
+            "total_trades": total_trades,
+            "total_analyses": len(self.post_trade_analyses),
+            "recurring_errors": len(self.detect_recurring_errors()),
+            "invalid_signals_detected": len(self.invalid_signals),
+            "avoidable_losses": {
+                "count": self.avoidable_losses.get("total_avoidable", 0),
+                "total_amount": round(self.avoidable_losses.get("total_amount", 0), 2),
+                "ratio": round(
+                    self.avoidable_losses.get("total_avoidable", 0) / total_trades if total_trades > 0 else 0,
+                    3
+                )
+            },
+            "improvements_suggested": len(self.avoidable_losses.get("improvements_suggested", [])),
+            "learning_rate": self.state.get("learning_rate", 0.1),
+            "adaptive_adjustments": len(self.state.get("lessons_learned", []))
+        }
+    
+    def _save_avoidable_losses(self):
+        """Sauvegarde l'analyse des pertes évitables"""
+        try:
+            with open(self.avoidable_losses_file, "w", encoding="utf-8") as f:
+                json.dump(self.avoidable_losses, f, indent=2)
+        except Exception as e:
+            print(f"⚠️ Erreur sauvegarde pertes évitables: {e}")

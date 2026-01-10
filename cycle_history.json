@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": "2026-01-10T17:57:41.185329",
+    "trade": {
+      "asset": "BTC",
+      "entry_price": 998.95,
+      "exit_price": 1008.24,
+      "amount": 743.59,
+      "pnl": 6.92,
+      "withdrawn_to_principal": 1.38,
+      "strategy_used": "Default_Conservative_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 0.7875000000000001,
+      "timestamp": "2026-01-10T17:57:41.143042"
+    },
+    "market": {
+      "BTC": 1.36,
+      "ETH": 1.45,
+      "SOL": -1.62
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 6.92,
+    "win_rate": 0.667,
+    "strategy": "Default_Conservative_Strategy",
+    "capital": {
+      "principal": 3117.16,
+      "investment": 7441.44
+    }
+  }
+]

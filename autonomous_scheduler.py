@@ -1,7 +1,7 @@
 """
-Module Scheduler Autonome Ultra
-Gère les tâches périodiques en arrière-plan sans bloquer l'interface GUI
-Avec système d'apprentissage permanent intégré
+Module Scheduler Autonome Ultra - Version 2.0
+Gère les tâches périodiques en arrière-plan avec système d'apprentissage permanent,
+analyse stratégique avancée et reporting automatisé
 """
 
 from pathlib import Path
@@ -10,30 +10,46 @@ import json
 import random
 import threading
 import time
-from docx import Document   # add to top (require python-docx)
+from docx import Document
 from learning_engine import LearningEngine
+from strategy_analyzer import StrategyAnalyzer, MarketCondition
+from strategy_fusion import StrategyFusionEngine
+from advanced_reporting import AdvancedReportingSystem
 
 class AutonomousScheduler:
     def __init__(self, interval_hours: int = 4, gui_callback=None, project_root: Path | str | None = None):
         """
-        Initialise le scheduler avec apprentissage permanent
+        Initialise le scheduler avec tous les systèmes avancés
         
         Args:
             interval_hours: Intervalle d'analyse en heures (défaut: 4h)
             gui_callback: Fonction de callback pour mettre à jour la GUI
-            project_root: dossier où seront écrits les fichiers (logs, résumé, capital)
+            project_root: dossier où seront écrits les fichiers
         """
         self.interval_hours = interval_hours
         self.gui_callback = gui_callback
         self._running = False
         self._continuous_thread = None
         self._next_analysis = datetime.utcnow() + timedelta(hours=self.interval_hours)
-        # Allow tests / scripts to control where files are written
         self.project_root = Path(project_root) if project_root else Path(__file__).parent
         
-        # 🧠 Moteur d'apprentissage permanent
+        # 🧠 Moteur d'apprentissage permanent (amélioré)
         self.learning_engine = LearningEngine(self.project_root)
-        print("🧠 Moteur d'apprentissage permanent activé")
+        print("🧠 Moteur d'apprentissage permanent activé (v2.0)")
+        
+        # 🎯 Analyseur de stratégies (BullX, Photon, Glider, Binance)
+        self.strategy_analyzer = StrategyAnalyzer(self.project_root)
+        print("🎯 Analyseur de stratégies initialisé (BullX, Photon, Glider, Binance)")
+        
+        # 🔄 Moteur de fusion adaptatif
+        self.strategy_fusion = StrategyFusionEngine(self.project_root, self.strategy_analyzer)
+        print("🔄 Moteur de fusion stratégique activé")
+        
+        # 📊 Système de reporting automatisé
+        self.reporting_system = AdvancedReportingSystem(self.project_root)
+        print("📊 Système de reporting automatisé activé")
+        
+        self.cycle_count = 0
 
     def start(self):
         """Démarre le scheduler en arrière-plan (boucle continue)."""
@@ -71,16 +87,13 @@ class AutonomousScheduler:
     
     def run_one_shot(self, simulate: bool = True):
         """
-        Run one full simulated cycle:
-          - load/init capital_state.json
-          - enforce initial 70% investment rule if needed
-          - simulate market analysis
-          - make SP decision
-          - simulate TestNet trade execution (no real funds)
-          - update capital_state.json, last_cycle_summary.txt and sp_agent.log
-          - return a summary dict and optional text
+        Cycle complet avec analyse stratégique avancée:
+          - Détection condition de marché
+          - Sélection/fusion stratégies optimales
+          - Analyse post-trade avec apprentissage
+          - Auto-amélioration des règles
+          - Génération rapports 4h et quotidiens
         """
-        # use self.project_root rather than Path(__file__).parent
         project_root = self.project_root
         log_path = project_root / "sp_agent.log"
         summary_path = project_root / "last_cycle_summary.txt"
@@ -92,7 +105,12 @@ class AutonomousScheduler:
                 f.write(f"{ts} {msg}\n")
 
         try:
-            # Load or init capital
+            self.cycle_count += 1
+            _log(f"═══════ DÉBUT CYCLE #{self.cycle_count} ═══════")
+            
+            # ═══════════════════════════════════════════════════════
+            # 1️⃣ CHARGEMENT CAPITAL & INITIALISATION
+            # ═══════════════════════════════════════════════════════
             if capital_path.exists():
                 with open(capital_path, "r", encoding="utf-8") as f:
                     capital = json.load(f)
@@ -101,174 +119,258 @@ class AutonomousScheduler:
                 with open(capital_path, "w", encoding="utf-8") as f:
                     json.dump(capital, f, indent=2)
 
-            # Apply initial 70% investment rule if needed
             if capital.get("investment", 0.0) == 0.0:
                 invest_amount = round(capital["principal"] * 0.7, 2)
                 capital["principal"] = round(capital["principal"] - invest_amount, 2)
                 capital["investment"] = round(invest_amount, 2)
-                _log(f"INIT INVEST: moved {invest_amount} to investment per SP rule.")
+                _log(f"INIT_INVEST: {invest_amount} vers investment")
 
-            # Simulate market analysis
+            # ═══════════════════════════════════════════════════════
+            # 2️⃣ ANALYSE DE MARCHÉ SIMULÉE
+            # ═══════════════════════════════════════════════════════
             assets = ["BTC", "ETH", "SOL"]
             market = {a: round(random.uniform(-2.0, 3.0), 2) for a in assets}
-            top_up = max(market.items(), key=lambda x: x[1])
-            top_down = min(market.items(), key=lambda x: x[1])
             _log(f"MARKET: {market}")
-
-            # 🧠 Obtenir la recommandation du moteur d'apprentissage
-            recommendation = self.learning_engine.get_trading_recommendation(market)
-            _log(f"LEARNING_RECOMMENDATION: {recommendation.get('best_choice')}")
-
-            # Decision & simulated trade avec apprentissage
+            
+            # ═══════════════════════════════════════════════════════
+            # 3️⃣ DÉTECTION CONDITION DE MARCHÉ
+            # ═══════════════════════════════════════════════════════
+            market_condition = self.strategy_analyzer.detect_market_condition(market)
+            _log(f"MARKET_CONDITION: {market_condition.value}")
+            print(f"📊 Condition de marché: {market_condition.value}")
+            
+            # ═══════════════════════════════════════════════════════
+            # 4️⃣ SÉLECTION/FUSION STRATÉGIE OPTIMALE
+            # ═══════════════════════════════════════════════════════
+            current_strategy = self.strategy_fusion.fuse_strategies(
+                market_condition.value,
+                force_refusion=False
+            )
+            strategy_name = current_strategy.get("name", "default")
+            _log(f"STRATEGY_SELECTED: {strategy_name} (confiance: {current_strategy.get('confidence', 0):.2f})")
+            print(f"🎯 Stratégie: {strategy_name}")
+            
+            # ═══════════════════════════════════════════════════════
+            # 5️⃣ GÉNÉRATION SIGNAUX DE TRADING
+            # ═══════════════════════════════════════════════════════
+            best_asset = max(market.items(), key=lambda x: x[1])
+            worst_asset = min(market.items(), key=lambda x: x[1])
+            
+            trading_signals = self.strategy_fusion.get_trading_signals(market, best_asset[0])
+            _log(f"TRADING_SIGNALS: {trading_signals}")
+            
+            # Obtenir aussi la recommandation d'apprentissage
+            learning_recommendation = self.learning_engine.get_trading_recommendation(market)
+            best_choice = learning_recommendation.get("best_choice")
+            
+            # ═══════════════════════════════════════════════════════
+            # 6️⃣ DÉCISION & EXÉCUTION TRADE SIMULÉ
+            # ═══════════════════════════════════════════════════════
             decision = "HOLD"
             trade = None
+            justifications = []
             
-            best_asset = recommendation.get("best_choice")
-            if best_asset and best_asset["should_trade"] and capital["investment"] > 0:
-                # Vérifier si le moteur d'apprentissage approuve
+            # Combiner signaux de fusion et apprentissage
+            if (trading_signals.get("action") == "OPEN_LONG" and 
+                best_choice and best_choice.get("should_trade") and 
+                capital["investment"] > 0):
+                
+                # Double validation
                 should_trade, reason = self.learning_engine.should_trade(
-                    best_asset["asset"], 
+                    best_choice["asset"],
                     market
                 )
                 
-                if should_trade:
+                if should_trade and trading_signals.get("confidence", 0) > 0.5:
                     decision = "OPEN_LONG"
-                    # Ajuster le montant selon le niveau de risque appris
-                    risk_level = self.learning_engine.state.get("risk_level", 0.5)
-                    amount = round(capital["investment"] * 0.5 * risk_level, 2)
+                    asset = best_choice["asset"]
                     
-                    entry_price = round(1000 * (1 + random.uniform(-0.01, 0.01)), 2)
-                    exit_move = random.uniform(-1.0, 4.0)
-                    exit_price = round(entry_price * (1 + exit_move / 100), 2)
-                    pnl = round(amount * (exit_price - entry_price) / entry_price, 2)
-                    capital["investment"] = round(capital["investment"] + pnl, 2)
-                    withdrawn = 0.0
-                    if pnl > 0:
-                        withdrawn = round(pnl * 0.2, 2)
-                        capital["investment"] = round(capital["investment"] - withdrawn, 2)
-                        capital["principal"] = round(capital["principal"] + withdrawn, 2)
-                    trade = {
-                        "asset": best_asset["asset"],
-                        "entry_price": entry_price,
-                        "exit_price": exit_price,
-                        "amount": amount,
-                        "pnl": pnl,
-                        "withdrawn_to_principal": withdrawn,
-                        "confidence": best_asset.get("confidence", 0.5),
-                        "learning_approved": True
-                    }
-                    _log(f"TRADE: {trade}")
-                else:
-                    _log(f"TRADE_BLOCKED: {reason}")
-                    decision = f"HOLD ({reason})"
-            elif top_up[1] > 0.5 and capital["investment"] > 0:
-                # Fallback vers l'ancienne logique si pas de recommandation
-                should_trade, reason = self.learning_engine.should_trade(top_up[0], market)
-                if should_trade:
-                    decision = "OPEN_LONG"
+                    # Taille de position adaptative
                     risk_level = self.learning_engine.state.get("risk_level", 0.5)
-                    amount = round(capital["investment"] * 0.5 * risk_level, 2)
+                    strategy_position_size = current_strategy.get("risk_parameters", {}).get("max_position_size", 0.15)
+                    position_size = min(risk_level * 0.5, strategy_position_size)
+                    
+                    amount = round(capital["investment"] * position_size, 2)
+                    
+                    # Simulation prix
                     entry_price = round(1000 * (1 + random.uniform(-0.01, 0.01)), 2)
-                    exit_move = random.uniform(-1.0, 4.0)
+                    market_move = market.get(asset, 0)
+                    exit_move = random.uniform(market_move - 1, market_move + 2)
                     exit_price = round(entry_price * (1 + exit_move / 100), 2)
                     pnl = round(amount * (exit_price - entry_price) / entry_price, 2)
+                    
+                    # Mise à jour capital
                     capital["investment"] = round(capital["investment"] + pnl, 2)
                     withdrawn = 0.0
                     if pnl > 0:
                         withdrawn = round(pnl * 0.2, 2)
                         capital["investment"] = round(capital["investment"] - withdrawn, 2)
                         capital["principal"] = round(capital["principal"] + withdrawn, 2)
+                    
                     trade = {
-                        "asset": top_up[0],
+                        "asset": asset,
                         "entry_price": entry_price,
                         "exit_price": exit_price,
                         "amount": amount,
                         "pnl": pnl,
                         "withdrawn_to_principal": withdrawn,
-                        "learning_approved": True
+                        "strategy_used": strategy_name,
+                        "fusion_confidence": current_strategy.get("confidence", 0),
+                        "learning_confidence": best_choice.get("confidence", 0),
+                        "timestamp": datetime.utcnow().isoformat()
                     }
-                    _log(f"TRADE: {trade}")
+                    
+                    justifications.extend([
+                        f"Stratégie fusionnée ({strategy_name}) recommande LONG",
+                        f"Confiance fusion: {current_strategy.get('confidence', 0):.1%}",
+                        f"Apprentissage valide le signal (confiance: {best_choice.get('confidence', 0):.1%})",
+                        f"Mouvement {asset}: {market.get(asset, 0):+.2f}%",
+                        f"Taille position adaptée: {position_size:.1%} du capital investi"
+                    ])
+                    
+                    _log(f"TRADE_EXECUTED: {trade}")
+                    print(f"✅ Trade exécuté: {asset} P&L=${pnl:.2f}")
                 else:
-                    _log(f"TRADE_BLOCKED: {reason}")
-                    decision = f"HOLD ({reason})"
+                    decision = f"HOLD"
+                    justifications.append(f"Signal bloqué par apprentissage: {reason}")
+                    _log(f"TRADE_BLOCKED_LEARNING: {reason}")
+            
+            elif trading_signals.get("action") == "AVOID":
+                decision = "HOLD"
+                justifications.extend(trading_signals.get("reasons", ["Conditions défavorables"]))
+                _log(f"DECISION: AVOID - {justifications[-1]}")
             else:
-                _log("DECISION: HOLD (no trade)")
-
-            # Build summary and persist files
+                decision = "HOLD"
+                justifications.append("Aucun signal de trading valide")
+                _log("DECISION: HOLD")
+            
+            # ═══════════════════════════════════════════════════════
+            # 7️⃣ ANALYSE POST-TRADE & APPRENTISSAGE
+            # ═══════════════════════════════════════════════════════
             summary = {
                 "timestamp": datetime.utcnow().isoformat() + "Z",
+                "cycle": self.cycle_count,
                 "market": market,
-                "top_up": {top_up[0]: top_up[1]},
-                "top_down": {top_down[0]: top_down[1]},
+                "market_condition": market_condition.value,
+                "top_up": {best_asset[0]: best_asset[1]},
+                "top_down": {worst_asset[0]: worst_asset[1]},
                 "decision": decision,
                 "trade": trade,
                 "capital": capital,
-                "learning_recommendation": recommendation
+                "strategy_used": strategy_name,
+                "justifications": justifications
             }
-
-            # 🧠 Analyser le trade et apprendre
+            
             if trade:
-                adjustments = self.learning_engine.analyze_trade(summary)
-                _log(f"LEARNING_ADJUSTMENTS: {adjustments}")
-                summary["learning_adjustments"] = adjustments
+                # 🧠 Analyse post-trade complète
+                post_analysis = self.learning_engine.perform_post_trade_analysis(trade, market)
+                summary["post_trade_analysis"] = post_analysis
+                _log(f"POST_TRADE_ANALYSIS: errors={len(post_analysis.get('errors_identified', []))}, avoidable={post_analysis.get('avoidable')}")
                 
-                # Afficher les leçons apprises
-                if adjustments.get("changes"):
-                    for change in adjustments["changes"]:
-                        _log(f"LEARNING: {change}")
-
-            # Write human-readable summary with learning info
+                # Analyser et ajuster
+                learning_adjustments = self.learning_engine.analyze_trade(summary)
+                summary["learning_adjustments"] = learning_adjustments
+                _log(f"LEARNING_ADJUSTMENTS: {learning_adjustments.get('changes', [])}")
+                
+                # Afficher les changements
+                for change in learning_adjustments.get("changes", []):
+                    _log(f"LEARNING_CHANGE: {change}")
+                    print(f"  🔧 {change}")
+                
+                # Mettre à jour les performances de la stratégie
+                self.strategy_analyzer.update_strategy_performance(
+                    strategy_name,
+                    {**trade, "rules_used": []}
+                )
+                
+                # Adapter la stratégie fusionnée selon performance
+                recent_trades = [c.get("trade") for c in self.reporting_system.cycle_history[-20:] if c.get("trade")]
+                fusion_adaptation = self.strategy_fusion.adapt_to_performance(recent_trades)
+                if fusion_adaptation.get("adjusted"):
+                    _log(f"FUSION_ADAPTATION: {fusion_adaptation.get('changes', [])}")
+                    print(f"🔄 Adaptation fusion: {fusion_adaptation.get('new_mode')}")
+            
+            # ═══════════════════════════════════════════════════════
+            # 8️⃣ AUTO-MODIFICATION DES RÈGLES
+            # ═══════════════════════════════════════════════════════
+            if self.cycle_count % 5 == 0:  # Tous les 5 cycles
+                print("🔍 Analyse des erreurs récurrentes...")
+                rule_modifications = self.learning_engine.auto_modify_trading_rules()
+                if rule_modifications.get("rules_modified") or rule_modifications.get("parameters_adjusted"):
+                    _log(f"RULES_AUTO_MODIFIED: {rule_modifications}")
+                    summary["rule_modifications"] = rule_modifications
+            
+            # ═══════════════════════════════════════════════════════
+            # 9️⃣ GÉNÉRATION RAPPORTS
+            # ═══════════════════════════════════════════════════════
+            
+            # Résumé texte
+            learning_summary = self.learning_engine.get_summary()
             text = []
-            text.append(f"Résumé cycle - {summary['timestamp']}")
+            text.append(f"Résumé cycle #{self.cycle_count} - {summary['timestamp']}")
+            text.append(f"Condition marché: {market_condition.value}")
+            text.append(f"Stratégie: {strategy_name}")
             text.append(f"Top hausses: {summary['top_up']}")
             text.append(f"Top baisses: {summary['top_down']}")
             text.append(f"Décision: {decision}")
             if trade:
-                text.append(f"Trade simulé: {json.dumps(trade)}")
-            text.append(f"Capital: {json.dumps(capital)}")
-            
-            # Ajouter info d'apprentissage
-            learning_summary = self.learning_engine.get_summary()
-            text.append(f"\n📊 Apprentissage:")
-            text.append(f"  - Win Rate: {learning_summary['win_rate']:.1%}")
-            text.append(f"  - Trades totaux: {learning_summary['total_trades']}")
-            text.append(f"  - Leçons apprises: {learning_summary['lessons_learned']}")
-            text.append(f"  - Niveau de risque: {learning_summary['risk_level']:.2f}")
-            if learning_summary.get('recent_lessons'):
-                text.append(f"  - Dernières leçons:")
-                for lesson in learning_summary['recent_lessons']:
-                    text.append(f"    • {lesson}")
+                text.append(f"Trade: {trade['asset']} P&L=${trade['pnl']:.2f}")
+            text.append(f"Capital: Principal=${capital['principal']:.2f} Investment=${capital['investment']:.2f}")
+            text.append(f"\n📊 Performance:")
+            text.append(f"  Win Rate: {learning_summary['win_rate']:.1%}")
+            text.append(f"  Total Trades: {learning_summary['total_trades']}")
+            text.append(f"  Niveau Risque: {learning_summary['risk_level']:.2f}")
             
             with open(summary_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(text))
-
-            # Persist capital
+            
+            # Sauvegarder capital
             with open(capital_path, "w", encoding="utf-8") as f:
                 json.dump(capital, f, indent=2)
-
+            
             _log(f"SUMMARY_WRITTEN -> {summary_path.name}")
             
-            # 📄 Générer automatiquement le rapport Word
+            # 📄 Rapport 4h automatique
             try:
-                docx_path = self.generate_cycle_docx(summary)
-                _log(f"REPORT_GENERATED -> {docx_path}")
-                print(f"📄 Rapport Word généré: {docx_path}")
+                report_path = self.reporting_system.generate_4h_report(
+                    cycle_data=summary,
+                    learning_summary=learning_summary,
+                    strategy_info=current_strategy
+                )
+                if report_path:
+                    _log(f"REPORT_4H_GENERATED -> {report_path}")
+                    print(f"📄 Rapport 4h: {report_path}")
             except Exception as e:
-                _log(f"REPORT_ERROR: {e}")
-                print(f"⚠️ Erreur génération rapport: {e}")
+                _log(f"REPORT_4H_ERROR: {e}")
+                print(f"⚠️ Erreur rapport 4h: {e}")
             
+            # 📅 Rapport quotidien si nécessaire
+            if self.reporting_system.should_generate_daily_report():
+                try:
+                    daily_report = self.reporting_system.generate_daily_report()
+                    if daily_report:
+                        _log(f"REPORT_DAILY_GENERATED -> {daily_report}")
+                        print(f"📅 Rapport quotidien: {daily_report}")
+                except Exception as e:
+                    _log(f"REPORT_DAILY_ERROR: {e}")
+            
+            _log(f"═══════ FIN CYCLE #{self.cycle_count} ═══════\n")
+            
+            # Callback GUI
             if self.gui_callback:
                 try:
-                    self.gui_callback("success", "One-shot: analyse simulée terminée", data=summary)
+                    self.gui_callback("success", f"Cycle #{self.cycle_count} terminé", data=summary)
                 except Exception:
                     pass
 
             return {"summary": summary, "summary_text": "\n".join(text)}
+            
         except Exception as ex:
-            _log(f"ERROR: {ex}")
+            _log(f"ERROR_CYCLE: {ex}")
+            print(f"❌ Erreur cycle: {ex}")
             if self.gui_callback:
                 try:
-                    self.gui_callback("error", f"One-shot error: {ex}")
+                    self.gui_callback("error", f"Erreur: {ex}")
                 except Exception:
                     pass
             raise
