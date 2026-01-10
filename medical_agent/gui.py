@@ -64,7 +64,7 @@ class MedicalGUI:
         title_text = tk.Frame(title_frame, bg=THEME["accent"])
         title_text.pack(side=tk.LEFT, padx=10)
         
-        tk.Label(title_text, text="Dr. Bob - Medical AI", 
+        tk.Label(title_text, text="MediGenius AI", 
                 font=("Segoe UI", 20, "bold"),
                 bg=THEME["accent"], fg="white").pack(anchor=tk.W)
         
@@ -187,7 +187,7 @@ class MedicalGUI:
     
     def _display_welcome_message(self):
         """Affiche le message de bienvenue"""
-        welcome = f"""🧽 Bienvenue chez Dr. Bob - Medical AI!
+        welcome = f"""� Bienvenue chez MediGenius AI!
 
 Je suis ton assistant médical autonome qui génère automatiquement 3 leçons par semaine (Lundi, Mercredi, Vendredi à 9h).
 
@@ -209,7 +209,7 @@ Prochaine génération: {self.scheduler._get_next_generation_time()}
 💬 Tu peux aussi me poser des questions médicales directement!
 """
         
-        self._display_message("🧽 Dr. Bob", welcome, "agent")
+        self._display_message("� MediGenius AI", welcome, "agent")
     
     def _quick_command(self, command: str):
         """Exécute une commande rapide"""
@@ -259,7 +259,7 @@ Prochaine génération: {self.scheduler._get_next_generation_time()}
                 self.conversation_history.append({"role": "assistant", "content": response})
             
             # Afficher la réponse
-            self.root.after(0, lambda: self._display_message("🧽 Dr. Bob", response, "agent"))
+            self.root.after(0, lambda: self._display_message("� MediGenius AI", response, "agent"))
             self.root.after(0, lambda: self._update_status("✅ Prêt"))
             
         except Exception as e:

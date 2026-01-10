@@ -15,7 +15,7 @@ from medical_agent.scheduler import test_scheduler
 
 
 def main():
-    parser = argparse.ArgumentParser(description="🧽 Dr. Bob - Medical AI Agent")
+    parser = argparse.ArgumentParser(description="� MediGenius AI - Assistant Médical Intelligent")
     parser.add_argument("--test-scheduler", action="store_true", 
                        help="Tester le scheduler (génère une leçon test)")
     parser.add_argument("--generate", type=int, metavar="N",
@@ -29,7 +29,7 @@ def main():
     
     try:
         print("="*60)
-        print("🧽 DR. BOB - MEDICAL AI AGENT")
+        print("� MEDIGENIUS AI - ASSISTANT MÉDICAL INTELLIGENT")
         print("="*60)
         print()
         

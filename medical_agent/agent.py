@@ -319,7 +319,7 @@ class MedicalAIAgent:
             conversation_history = []
         
         messages = [
-            {"role": "system", "content": "Tu es Dr. Bob, un assistant médical IA expert et pédagogue. Tu aides les étudiants en médecine avec des explications claires et précises."}
+            {"role": "system", "content": "Tu es MediGenius AI, un assistant médical IA expert et pédagogue. Tu aides les étudiants en médecine avec des explications claires et précises."}
         ]
         
         messages.extend(conversation_history[-10:])  # Garder les 10 derniers messages

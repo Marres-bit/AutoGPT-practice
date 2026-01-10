@@ -6,8 +6,12 @@ Medical AI Agent - Configuration
 OPENAI_API_KEY = ""  # Sera chargé depuis .env
 
 # Agent Settings
-AGENT_NAME = "Dr. Bob - Medical AI"
+AGENT_NAME = "MediGenius AI - Assistant Médical Intelligent"
 AGENT_MODEL = "gpt-4o-mini"
+
+# Cloud Database Settings
+USE_CLOUD_DATABASE = True
+JSONBIN_API_KEY = ""  # Optionnel - mode gratuit si vide
 AGENT_TEMPERATURE = 0.7
 AGENT_MAX_TOKENS = 2000
 

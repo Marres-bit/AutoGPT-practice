@@ -1,10 +1,10 @@
 @echo off
 echo ============================================
-echo   Dr. Bob - Medical AI Agent
-echo   Assistant Medical Autonome
+echo   MediGenius AI - Assistant Medical
+echo   Assistant Medical Intelligent avec Cloud
 echo ============================================
 echo.
-echo Demarrage de l'agent medical...
+echo Demarrage de MediGenius AI...
 echo.
 
 cd /d "%~dp0"

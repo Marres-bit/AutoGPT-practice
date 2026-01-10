@@ -1,4 +1,4 @@
-# 🧽 Dr. Bob - Agent Médical Autonome
+# � MediGenius AI - Assistant Médical Intelligent
 
 Un assistant médical intelligent qui génère automatiquement du contenu éducatif médical.
 
@@ -116,7 +116,7 @@ medical_agent/
 ├── agent.py             # Moteur IA (OpenAI GPT-4o-mini)
 ├── scheduler.py         # Planification automatique (schedule)
 ├── commands.py          # Système de commandes
-├── gui.py               # Interface Tkinter avec Bob l'éponge 🧽
+├── gui.py               # Interface Tkinter moderne 🧠
 └── README.md            # Cette documentation
 
 main_medical.py          # Point d'entrée principal
@@ -288,7 +288,7 @@ python main_medical.py --stats
 ## 🎨 Interface Graphique
 
 ### Fonctionnalités
-- **🧽 Icône Bob l'éponge** en header
+- **� Icône MediGenius AI** en header
 - **Sidebar** avec boutons rapides pour commandes fréquentes
 - **Zone de chat** avec historique complet
 - **Status du scheduler** en temps réel
@@ -343,7 +343,7 @@ python -c "from medical_agent.config import *; \
 
 Les logs sont affichés dans la console:
 ```
-✅ Dr. Bob - Medical AI initialisé
+✅ MediGenius AI initialisé
 ✅ Base de données médicale initialisée
 ⏰ Scheduler médical initialisé
 📚 Prochaine génération: Monday 12/01/2026 à 09:00
@@ -367,7 +367,7 @@ Ce projet est pour usage personnel éducatif.
 
 ## 👨‍⚕️ À Propos
 
-**Dr. Bob - Medical AI Agent**
+**MediGenius AI - Assistant Médical Intelligent**
 - Version: 1.0.0
 - Modèle IA: OpenAI GPT-4o-mini
 - Framework GUI: Tkinter
@@ -376,6 +376,6 @@ Ce projet est pour usage personnel éducatif.
 
 ---
 
-**🧽 Dr. Bob est toujours prêt à vous enseigner la médecine!**
+**� MediGenius AI est toujours prêt à vous enseigner la médecine!**
 
 Pour toute question, utilisez `/help` dans l'interface ou consultez cette documentation.

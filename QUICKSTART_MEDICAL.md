@@ -1,4 +1,6 @@
-# 🧽 Dr. Bob - Guide de Démarrage Rapide
+# � MediGenius AI - Guide de Démarrage Rapide
+
+**Assistant Médical Intelligent avec Stockage Cloud**
 
 ## Installation en 3 étapes
 
