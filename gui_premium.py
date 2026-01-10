@@ -251,6 +251,28 @@ class PremiumGUI:
         self.is_processing = False
         self.focus_mode = False
         
+        # Premium Color Palette - Glassmorphism & Gradient Design (MUST BE BEFORE root.configure)
+        self.colors = {
+            "bg_main": "#0f0f1e",  # Deep space blue
+            "bg_secondary": "#1a1a2e",  # Rich dark blue
+            "bg_tertiary": "#16213e",  # Midnight blue
+            "accent": "#00d4ff",  # Cyan glow
+            "accent_secondary": "#7c3aed",  # Purple accent
+            "accent_hover": "#00b8e6",  # Cyan hover
+            "text_main": "#ffffff",  # Pure white
+            "text_secondary": "#a0aec0",  # Cool gray
+            "text_tertiary": "#718096",  # Muted gray
+            "user_bubble": "#6366f1",  # Indigo
+            "agent_bubble": "#1e293b",  # Slate
+            "success": "#10b981",  # Emerald green
+            "warning": "#f59e0b",  # Amber
+            "error": "#ef4444",  # Red
+            "gradient_start": "#667eea",  # Purple gradient
+            "gradient_end": "#764ba2",  # Deep purple
+            "border": "#334155",  # Slate border
+            "shadow": "#000000",  # Black shadow
+        }
+        
         # Initialize file handler for attachments
         self.file_handler = FileHandler()
         
@@ -273,28 +295,6 @@ class PremiumGUI:
             self.root.iconbitmap(default='icon.ico')
         except:
             pass
-        
-        # Premium Color Palette - Glassmorphism & Gradient Design
-        self.colors = {
-            "bg_main": "#0f0f1e",  # Deep space blue
-            "bg_secondary": "#1a1a2e",  # Rich dark blue
-            "bg_tertiary": "#16213e",  # Midnight blue
-            "accent": "#00d4ff",  # Cyan glow
-            "accent_secondary": "#7c3aed",  # Purple accent
-            "accent_hover": "#00b8e6",  # Cyan hover
-            "text_main": "#ffffff",  # Pure white
-            "text_secondary": "#a0aec0",  # Cool gray
-            "text_tertiary": "#718096",  # Muted gray
-            "user_bubble": "#6366f1",  # Indigo
-            "agent_bubble": "#1e293b",  # Slate
-            "success": "#10b981",  # Emerald green
-            "warning": "#f59e0b",  # Amber
-            "error": "#ef4444",  # Red
-            "gradient_start": "#667eea",  # Purple gradient
-            "gradient_end": "#764ba2",  # Deep purple
-            "border": "#334155",  # Slate border
-            "shadow": "#000000",  # Black shadow
-        }
         
         # Settings panel - Create BEFORE interface
         self.settings_panel = PremiumSettingsPanel(self.root, agent)
