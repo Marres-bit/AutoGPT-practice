@@ -1,0 +1,13 @@
+{
+  "current_fusion": null,
+  "active_strategies": [],
+  "fusion_history": [],
+  "adaptation_mode": "aggressive",
+  "performance_window": 20,
+  "last_fusion_date": null,
+  "fusion_parameters": {
+    "risk_multiplier": 1.2,
+    "confidence_threshold": 0.6,
+    "min_strategies_to_fuse": 2
+  }
+}

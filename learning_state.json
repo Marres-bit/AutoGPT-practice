@@ -1,13 +1,13 @@
 {
   "min_gain_to_open": 0.8,
   "consecutive_losses": 0,
-  "total_trades": 12,
-  "winning_trades": 8,
+  "total_trades": 26,
+  "winning_trades": 22,
   "losing_trades": 4,
-  "win_rate": 0.667,
+  "win_rate": 0.846,
   "max_loss_threshold": -15,
   "min_win_threshold": 10.0,
-  "risk_level": 0.6000000000000001,
+  "risk_level": 0.8,
   "learning_rate": 0.1,
   "adaptive_threshold": true,
   "avoid_patterns": [
@@ -16,5 +16,5 @@
   "lessons_learned": [
     "Ne pas ouvrir de position quand le march\u00e9 global est n\u00e9gatif"
   ],
-  "last_updated": "2026-01-10T17:57:41.144905"
+  "last_updated": "2026-01-11T10:02:25.672840"
 }

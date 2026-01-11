@@ -15,6 +15,9 @@ from learning_engine import LearningEngine
 from strategy_analyzer import StrategyAnalyzer, MarketCondition
 from strategy_fusion import StrategyFusionEngine
 from advanced_reporting import AdvancedReportingSystem
+from exchange_connector import get_exchange_connector
+from risk_manager import RiskManager, RiskLevel
+from structured_logger import get_logger
 
 class AutonomousScheduler:
     def __init__(self, interval_hours: int = 4, gui_callback=None, project_root: Path | str | None = None):
@@ -33,21 +36,39 @@ class AutonomousScheduler:
         self._next_analysis = datetime.utcnow() + timedelta(hours=self.interval_hours)
         self.project_root = Path(project_root) if project_root else Path(__file__).parent
         
-        # 🧠 Moteur d'apprentissage permanent (amélioré)
+        # Moteur d'apprentissage permanent (amélioré)
         self.learning_engine = LearningEngine(self.project_root)
-        print("🧠 Moteur d'apprentissage permanent activé (v2.0)")
+        print("[OK] Moteur d'apprentissage permanent activé (v2.0)")
         
-        # 🎯 Analyseur de stratégies (BullX, Photon, Glider, Binance)
+        # Analyseur de stratégies (BullX, Photon, Glider, Binance)
         self.strategy_analyzer = StrategyAnalyzer(self.project_root)
-        print("🎯 Analyseur de stratégies initialisé (BullX, Photon, Glider, Binance)")
+        print("[OK] Analyseur de stratégies initialisé (BullX, Photon, Glider, Binance)")
         
-        # 🔄 Moteur de fusion adaptatif
+        # Moteur de fusion adaptatif
         self.strategy_fusion = StrategyFusionEngine(self.project_root, self.strategy_analyzer)
-        print("🔄 Moteur de fusion stratégique activé")
+        print("[OK] Moteur de fusion stratégique activé")
         
-        # 📊 Système de reporting automatisé
+        # Système de reporting automatisé
         self.reporting_system = AdvancedReportingSystem(self.project_root)
-        print("📊 Système de reporting automatisé activé")
+        print("[OK] Système de reporting automatisé activé")
+        
+        # Connecteur Exchange (prix réels)
+        self.exchange = get_exchange_connector(testnet=True)
+        status = self.exchange.get_connection_status()
+        mode_label = "TESTNET" if status['testnet'] else "PRODUCTION"
+        print(f"[OK] Exchange connecté: Binance {mode_label} (prix réels)")
+        
+        # Risk Manager (gestion risques professionnelle)
+        self.risk_manager = RiskManager(
+            project_root=self.project_root,
+            initial_capital=10000.0,
+            risk_level=RiskLevel.MODERATE
+        )
+        print("[OK] Risk Manager activé (Kelly Criterion, Max Drawdown 20%)")
+        
+        # Logger structuré
+        self.logger = get_logger("trading", self.project_root / "logs")
+        self.logger.info("Autonomous Scheduler initialisé", mode=mode_label, interval_hours=interval_hours)
         
         self.cycle_count = 0
 
@@ -126,11 +147,19 @@ class AutonomousScheduler:
                 _log(f"INIT_INVEST: {invest_amount} vers investment")
 
             # ═══════════════════════════════════════════════════════
-            # 2️⃣ ANALYSE DE MARCHÉ SIMULÉE
+            # 2️⃣ ANALYSE DE MARCHÉ RÉELLE (PRIX RÉELS)
             # ═══════════════════════════════════════════════════════
             assets = ["BTC", "ETH", "SOL"]
-            market = {a: round(random.uniform(-2.0, 3.0), 2) for a in assets}
-            _log(f"MARKET: {market}")
+            
+            # Récupérer variations réelles du marché
+            try:
+                market = self.exchange.calculate_market_changes()
+                _log(f"MARKET_REAL: {market} (source: Binance Testnet)")
+                print(f"📊 Prix réels récupérés: {len(market)} cryptos")
+            except Exception as e:
+                _log(f"WARNING: Erreur récupération prix réels: {e}, fallback simulation")
+                market = {a: round(random.uniform(-2.0, 3.0), 2) for a in assets}
+                _log(f"MARKET_SIMULATED: {market}")
             
             # ═══════════════════════════════════════════════════════
             # 3️⃣ DÉTECTION CONDITION DE MARCHÉ
@@ -146,6 +175,14 @@ class AutonomousScheduler:
                 market_condition.value,
                 force_refusion=False
             )
+            # Protection contre None
+            if current_strategy is None:
+                current_strategy = {
+                    "name": "Default_Conservative_Strategy",
+                    "type": "conservative",
+                    "confidence": 0.5,
+                    "rules": []
+                }
             strategy_name = current_strategy.get("name", "default")
             _log(f"STRATEGY_SELECTED: {strategy_name} (confiance: {current_strategy.get('confidence', 0):.2f})")
             print(f"🎯 Stratégie: {strategy_name}")
@@ -175,65 +212,181 @@ class AutonomousScheduler:
                 best_choice and best_choice.get("should_trade") and 
                 capital["investment"] > 0):
                 
-                # Double validation
-                should_trade, reason = self.learning_engine.should_trade(
-                    best_choice["asset"],
-                    market
-                )
-                
-                if should_trade and trading_signals.get("confidence", 0) > 0.5:
-                    decision = "OPEN_LONG"
-                    asset = best_choice["asset"]
+                # ⚠️ VALIDATION RISK MANAGER (prioritaire)
+                can_trade, risk_reason = self.risk_manager.can_trade()
+                if not can_trade:
+                    decision = "HOLD"
+                    justifications.append(f"❌ BLOQUÉ PAR RISK MANAGER: {risk_reason}")
+                    _log(f"TRADE_BLOCKED_RISK: {risk_reason}")
+                    self.logger.warning("Trade bloqué par Risk Manager", reason=risk_reason, capital=capital["investment"])
+                    print(f"⚠️ Trade bloqué: {risk_reason}")
+                elif trading_signals.get("confidence", 0) > 0.5:
+                    # Double validation apprentissage
+                    should_trade, reason = self.learning_engine.should_trade(
+                        best_choice["asset"],
+                        market
+                    )
                     
-                    # Taille de position adaptative
-                    risk_level = self.learning_engine.state.get("risk_level", 0.5)
-                    strategy_position_size = current_strategy.get("risk_parameters", {}).get("max_position_size", 0.15)
-                    position_size = min(risk_level * 0.5, strategy_position_size)
-                    
-                    amount = round(capital["investment"] * position_size, 2)
-                    
-                    # Simulation prix
-                    entry_price = round(1000 * (1 + random.uniform(-0.01, 0.01)), 2)
-                    market_move = market.get(asset, 0)
-                    exit_move = random.uniform(market_move - 1, market_move + 2)
-                    exit_price = round(entry_price * (1 + exit_move / 100), 2)
-                    pnl = round(amount * (exit_price - entry_price) / entry_price, 2)
+                    if should_trade:
+                        decision = "OPEN_LONG"
+                        asset = best_choice["asset"]
+                        
+                        # Prix réels de l'exchange
+                        try:
+                            symbol = f"{asset}/USDT"
+                            market_data = self.exchange.get_market_data(symbol)
+                            entry_price = market_data['price']
+                            
+                            # 🎯 RISK MANAGER: Calcul position size optimale avec Kelly Criterion
+                            confidence = (trading_signals.get("confidence", 0.5) + best_choice.get("confidence", 0.5)) / 2
+                            
+                            # Calculer stop-loss basé sur volatilité
+                            volatility = abs(market.get(asset, 0)) / 100  # Approximation volatilité
+                            stop_loss_pct = max(0.03, min(0.05, volatility * 2))  # 3-5% stop-loss dynamique
+                            stop_loss_price = entry_price * (1 - stop_loss_pct)
+                            
+                            risk_metrics = self.risk_manager.calculate_position_size(
+                                current_capital=capital["investment"],
+                                entry_price=entry_price,
+                                stop_loss_price=stop_loss_price,
+                                confidence=confidence
+                            )
+                            
+                            # Utiliser la position calculée par Risk Manager
+                            amount = risk_metrics.max_position_size
+                            stop_loss_price = risk_metrics.stop_loss_price
+                            take_profit_price = risk_metrics.take_profit_price
+                            
+                            self.logger.info(
+                                f"Position calculée par Risk Manager",
+                                asset=asset,
+                                amount=amount,
+                                stop_loss=stop_loss_price,
+                                take_profit=take_profit_price,
+                                kelly_pct=risk_metrics.kelly_percentage,
+                                risk_reward=risk_metrics.risk_reward_ratio
+                            )
+                        
+                            # Simulation de sortie (testnet = pas de trade réel)
+                            # Vérifier si stop-loss ou take-profit touché
+                            market_move = market.get(asset, 0)
+                            simulated_price = entry_price * (1 + market_move / 100)
+                            
+                            if simulated_price <= stop_loss_price:
+                                exit_price = stop_loss_price
+                                _log(f"STOP_LOSS_HIT: {asset} @ {stop_loss_price:.2f}")
+                            elif simulated_price >= take_profit_price:
+                                exit_price = take_profit_price
+                                _log(f"TAKE_PROFIT_HIT: {asset} @ {take_profit_price:.2f}")
+                            else:
+                                # Sortie normale
+                                exit_move = random.uniform(market_move - 1, market_move + 2)
+                                exit_price = round(entry_price * (1 + exit_move / 100), 2)
+                        
+                                # Calcul quantité réaliste
+                            quantity = amount / entry_price
+                            pnl = round((exit_price - entry_price) * quantity, 2)
+                            
+                            # 📊 UPDATE RISK MANAGER avec résultat trade
+                            self.risk_manager.update_after_trade(
+                                pnl=pnl,
+                                was_win=(pnl > 0),
+                                trade_info={
+                                    "asset": asset,
+                                    "entry": entry_price,
+                                    "exit": exit_price,
+                                    "confidence": confidence
+                                }
+                            )
+                            
+                            # 📝 Logger l'exécution du trade
+                            self.logger.log_trade_execution(
+                                asset=asset,
+                                action="BUY",
+                                entry_price=entry_price,
+                                quantity=quantity,
+                                strategy=strategy_name,
+                                confidence=confidence,
+                                stop_loss=stop_loss_price,
+                                take_profit=take_profit_price
+                            )
+                            
+                            _log(f"PRICE_REAL: {asset} entrée={entry_price:.2f} sortie={exit_price:.2f} qty={quantity:.6f}")
+                        except Exception as e:
+                            _log(f"WARNING: Prix réel échoué, fallback simulation: {e}")
+                            self.logger.error("Erreur fetch prix exchange, fallback simulation", error=str(e), asset=asset)
+                            
+                            # Fallback: position size basique
+                            position_size = 0.1  # 10% conservateur
+                            amount = round(capital["investment"] * position_size, 2)
+                            
+                            entry_price = round(1000 * (1 + random.uniform(-0.01, 0.01)), 2)
+                            market_move = market.get(asset, 0)
+                            exit_move = random.uniform(market_move - 1, market_move + 2)
+                            exit_price = round(entry_price * (1 + exit_move / 100), 2)
+                            quantity = amount / entry_price
+                            pnl = round((exit_price - entry_price) * quantity, 2)
+                            
+                            stop_loss_price = entry_price * 0.97
+                            take_profit_price = entry_price * 1.06
                     
                     # Mise à jour capital
-                    capital["investment"] = round(capital["investment"] + pnl, 2)
-                    withdrawn = 0.0
-                    if pnl > 0:
-                        withdrawn = round(pnl * 0.2, 2)
-                        capital["investment"] = round(capital["investment"] - withdrawn, 2)
-                        capital["principal"] = round(capital["principal"] + withdrawn, 2)
-                    
-                    trade = {
-                        "asset": asset,
-                        "entry_price": entry_price,
-                        "exit_price": exit_price,
-                        "amount": amount,
-                        "pnl": pnl,
-                        "withdrawn_to_principal": withdrawn,
-                        "strategy_used": strategy_name,
-                        "fusion_confidence": current_strategy.get("confidence", 0),
-                        "learning_confidence": best_choice.get("confidence", 0),
-                        "timestamp": datetime.utcnow().isoformat()
-                    }
-                    
-                    justifications.extend([
-                        f"Stratégie fusionnée ({strategy_name}) recommande LONG",
-                        f"Confiance fusion: {current_strategy.get('confidence', 0):.1%}",
-                        f"Apprentissage valide le signal (confiance: {best_choice.get('confidence', 0):.1%})",
-                        f"Mouvement {asset}: {market.get(asset, 0):+.2f}%",
-                        f"Taille position adaptée: {position_size:.1%} du capital investi"
-                    ])
-                    
-                    _log(f"TRADE_EXECUTED: {trade}")
-                    print(f"✅ Trade exécuté: {asset} P&L=${pnl:.2f}")
-                else:
-                    decision = f"HOLD"
-                    justifications.append(f"Signal bloqué par apprentissage: {reason}")
-                    _log(f"TRADE_BLOCKED_LEARNING: {reason}")
+                            capital["investment"] = round(capital["investment"] + pnl, 2)
+                            withdrawn = 0.0
+                            if pnl > 0:
+                                withdrawn = round(pnl * 0.2, 2)
+                                capital["investment"] = round(capital["investment"] - withdrawn, 2)
+                                capital["principal"] = round(capital["principal"] + withdrawn, 2)
+                            
+                            # Logger clôture trade
+                            self.logger.log_trade_close(
+                                asset=asset,
+                                exit_price=exit_price,
+                                pnl=pnl,
+                                pnl_pct=(pnl / amount * 100) if amount > 0 else 0,
+                                duration_seconds=random.randint(3600, 14400)  # Simulated
+                            )
+                            
+                            trade = {
+                                "asset": asset,
+                                "entry_price": entry_price,
+                                "exit_price": exit_price,
+                                "amount": amount,
+                                "pnl": pnl,
+                                "withdrawn_to_principal": withdrawn,
+                                "strategy_used": strategy_name,
+                                "fusion_confidence": current_strategy.get("confidence", 0),
+                                "learning_confidence": best_choice.get("confidence", 0),
+                                "timestamp": datetime.utcnow().isoformat(),
+                                "stop_loss_price": stop_loss_price,
+                                "take_profit_price": take_profit_price,
+                                "risk_metrics": {
+                                    "kelly_pct": risk_metrics.kelly_percentage,
+                                    "risk_reward_ratio": risk_metrics.risk_reward_ratio,
+                                    "position_size_pct": (amount / capital["investment"] * 100)
+                                }
+                            }
+                            
+                            justifications.extend([
+                                f"Stratégie fusionnée ({strategy_name}) recommande LONG",
+                                f"Confiance fusion: {current_strategy.get('confidence', 0):.1%}",
+                                f"Apprentissage valide le signal (confiance: {best_choice.get('confidence', 0):.1%})",
+                                f"Mouvement {asset}: {market.get(asset, 0):+.2f}%",
+                                f"Risk Manager: Position={amount:.2f}$ (Kelly: {risk_metrics.kelly_percentage:.1%})",
+                                f"Stop-Loss: ${stop_loss_price:.2f}, Take-Profit: ${take_profit_price:.2f}"
+                            ])
+                            
+                            _log(f"TRADE_EXECUTED: {trade}")
+                            print(f"✅ Trade exécuté: {asset} P&L=${pnl:.2f}")
+                        except Exception as e:
+                            _log(f"WARNING: Prix réel échoué, fallback simulation: {e}")
+                            self.logger.error("Erreur fetch prix exchange, fallback simulation", error=str(e), asset=asset)
+                            decision = "HOLD"
+                            justifications.append(f"❌ Erreur technique: {str(e)}")
+                    else:
+                        decision = f"HOLD"
+                        justifications.append(f"Signal bloqué par apprentissage: {reason}")
+                        _log(f"TRADE_BLOCKED_LEARNING: {reason}")
             
             elif trading_signals.get("action") == "AVOID":
                 decision = "HOLD"
@@ -306,6 +459,18 @@ class AutonomousScheduler:
             
             # Résumé texte
             learning_summary = self.learning_engine.get_summary()
+            
+            # 📊 Ajouter résumé Risk Manager
+            risk_summary = self.risk_manager.get_risk_summary()
+            
+            # Logger les métriques de performance
+            self.logger.log_performance_metrics(
+                capital=capital["principal"] + capital["investment"],
+                win_rate=learning_summary.get("win_rate", 0),
+                total_trades=learning_summary.get("total_trades", 0),
+                max_drawdown=risk_summary.get("current_drawdown", 0)
+            )
+            
             text = []
             text.append(f"Résumé cycle #{self.cycle_count} - {summary['timestamp']}")
             text.append(f"Condition marché: {market_condition.value}")
@@ -320,6 +485,11 @@ class AutonomousScheduler:
             text.append(f"  Win Rate: {learning_summary['win_rate']:.1%}")
             text.append(f"  Total Trades: {learning_summary['total_trades']}")
             text.append(f"  Niveau Risque: {learning_summary['risk_level']:.2f}")
+            text.append(f"\n🛡️ Risk Manager:")
+            text.append(f"  Drawdown Actuel: {risk_summary.get('current_drawdown', '0%')}")
+            text.append(f"  Max Drawdown Limite: {risk_summary.get('max_drawdown_limit', '20%')}")
+            text.append(f"  Trades Consécutifs Perdants: {risk_summary.get('consecutive_losses', 0)}")
+            text.append(f"  Emergency Stop: {'🔴 ACTIF' if risk_summary.get('emergency_stop') else '🟢 Inactif'}")
             
             with open(summary_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(text))
@@ -341,7 +511,9 @@ class AutonomousScheduler:
                     _log(f"REPORT_4H_GENERATED -> {report_path}")
                     print(f"📄 Rapport 4h: {report_path}")
             except Exception as e:
-                _log(f"REPORT_4H_ERROR: {e}")
+                import traceback
+                error_details = traceback.format_exc()
+                _log(f"REPORT_4H_ERROR: {e}\\n{error_details}")
                 print(f"⚠️ Erreur rapport 4h: {e}")
             
             # 📅 Rapport quotidien si nécessaire

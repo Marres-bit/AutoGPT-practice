@@ -32,8 +32,9 @@ class AdvancedReportingSystem:
         self.daily_summary = self._load_daily_summary()
         self.cycle_history = self._load_cycle_history()
         
-        # Déterminer le dossier Desktop
-        self.desktop_path = Path.home() / "Desktop"
+        # Déterminer le dossier Desktop et créer le dossier de suivi
+        self.desktop_path = Path.home() / "Desktop" / "Suivi crypto de Marres"
+        self.desktop_path.mkdir(exist_ok=True)  # Créer le dossier s'il n'existe pas
     
     def _load_daily_summary(self) -> Dict:
         """Charge le résumé quotidien ou initialise"""
@@ -96,6 +97,18 @@ class AdvancedReportingSystem:
         Returns:
             Chemin du rapport généré
         """
+        # Protection complète contre les None
+        if cycle_data is None:
+            cycle_data = {}
+        if learning_summary is None:
+            learning_summary = {"win_rate": 0, "total_trades": 0, "lessons_learned": 0, "patterns_identified": 0, "risk_level": 0.5, "recent_lessons": []}
+        if strategy_info is None:
+            strategy_info = {"name": "Défaut", "type": "conservative", "confidence": 0.5, "rules": []}
+        
+        # S'assurer que trade n'est jamais None
+        if "trade" not in cycle_data or cycle_data["trade"] is None:
+            cycle_data["trade"] = {}
+        
         timestamp = datetime.utcnow()
         filename = f"Rapport_Cycle_{timestamp.strftime('%Y%m%d_%H%M%S')}.docx"
         filepath = self.desktop_path / filename
@@ -122,8 +135,8 @@ class AdvancedReportingSystem:
         # ═══════════════════════════════════════════════════════
         doc.add_heading('📈 Résumé Financier du Cycle', 1)
         
-        trade = cycle_data.get("trade", {})
-        pnl = trade.get("pnl", 0)
+        trade = cycle_data.get("trade") or {}  # Protection contre None
+        pnl = trade.get("pnl", 0) if trade else 0
         capital = cycle_data.get("capital", {})
         
         # Table financière
@@ -232,6 +245,10 @@ class AdvancedReportingSystem:
         # ═══════════════════════════════════════════════════════
         doc.add_heading('🎯 Stratégie de Trading Utilisée', 1)
         
+        # Protection contre None
+        if strategy_info is None:
+            strategy_info = {"name": "Stratégie par défaut", "type": "Conservative", "confidence": 0.5, "rules": []}
+        
         strategy_name = strategy_info.get("name", "Stratégie par défaut")
         strategy_type = strategy_info.get("type", "N/A")
         confidence = strategy_info.get("confidence", 0)
@@ -265,9 +282,11 @@ class AdvancedReportingSystem:
                 doc.add_paragraph(f"• {justif}", style='List Bullet')
         else:
             # Générer des justifications basiques
-            if decision == "OPEN_LONG":
+            if decision == "OPEN_LONG" and trade and trade.get('asset'):
+                asset = trade.get('asset')
+                market_move = market.get(asset, 0)
                 doc.add_paragraph(
-                    f"• Asset {trade.get('asset')} montrait un mouvement positif de {market.get(trade.get('asset'), 0):.2f}%",
+                    f"• Asset {asset} montrait un mouvement positif de {market_move:.2f}%",
                     style='List Bullet'
                 )
                 doc.add_paragraph(

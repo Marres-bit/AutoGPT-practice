@@ -1,0 +1,16 @@
+[
+  {
+    "type": "performance_adaptation",
+    "trigger": "recent_performance_analysis",
+    "metrics": {
+      "win_rate": 1.0,
+      "avg_pnl": 16.69,
+      "consecutive_losses": 0,
+      "trades_analyzed": 10
+    },
+    "adjustments": [
+      "Performance excellente (100.0%) - passage en mode AGGRESSIVE"
+    ],
+    "timestamp": "2026-01-11T09:08:54.228127"
+  }
+]

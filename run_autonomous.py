@@ -37,12 +37,12 @@ def main():
     logging.info("▶️ Démarrage de la boucle continue (SP mode, TestNet)...")
     sched.start()
 
-    if args.no_block or args.service:
-        # don't block, service manager will monitor process
-        print("🔁 Boucle lancée en arrière-plan (no-block/service mode).")
+    if args.no_block:
+        # Mode no-block: retourner immédiatement (pour systemd/service managers externes)
+        print("🔁 Boucle lancée en mode no-block.")
         return
-
-    # Otherwise block and handle signals for graceful shutdown
+    
+    # Mode service ou interactif: garder le processus vivant
     stop_event = threading.Event()
 
     def _handle_signal(signum, frame):
@@ -54,7 +54,11 @@ def main():
     signal.signal(signal.SIGINT, _handle_signal)
     signal.signal(signal.SIGTERM, _handle_signal)
 
-    print("🔁 Boucle active — appuie Ctrl+C pour arrêter.")
+    if args.service:
+        print("🔁 Mode service actif - Agent tourne en boucle continue.")
+    else:
+        print("🔁 Boucle active — appuie Ctrl+C pour arrêter.")
+    
     try:
         while not stop_event.wait(timeout=60):
             pass

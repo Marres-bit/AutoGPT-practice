@@ -1,13 +1,19 @@
-Résumé cycle #1 - 2026-01-10T17:57:41.143356Z
+Résumé cycle #2 - 2026-01-11T10:02:25.671671Z
 Condition marché: sideways_market
 Stratégie: Default_Conservative_Strategy
-Top hausses: {'ETH': 1.45}
-Top baisses: {'SOL': -1.62}
+Top hausses: {'BNB': 1.315}
+Top baisses: {'BTC': -0.015}
 Décision: OPEN_LONG
-Trade: BTC P&L=$6.92
-Capital: Principal=$3117.16 Investment=$7441.44
+Trade: BNB P&L=$16.75
+Capital: Principal=$3158.84 Investment=$7608.14
 
 📊 Performance:
-  Win Rate: 66.7%
-  Total Trades: 12
-  Niveau Risque: 0.60
+  Win Rate: 84.6%
+  Total Trades: 26
+  Niveau Risque: 0.80
+
+🛡️ Risk Manager:
+  Drawdown Actuel: 0.00%
+  Max Drawdown Limite: 20.00%
+  Trades Consécutifs Perdants: 0
+  Emergency Stop: 🟢 Inactif
