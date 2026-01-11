@@ -386,6 +386,7 @@ class LearningEngine:
     def should_trade(self, asset: str, market: Dict) -> tuple[bool, str]:
         """
         Détermine si un trade doit être ouvert selon les leçons apprises
+        Logique hybride: Seuil de gain OU haute confiance
         
         Returns:
             (bool: should_trade, str: reason)
@@ -393,27 +394,48 @@ class LearningEngine:
         # Vérifier les patterns à éviter
         avoid_patterns = self.state.get("avoid_patterns", [])
         
-        # Check 1: Asset spécifique problématique
+        # Check 1: Asset spécifique problématique (blocage absolu)
         if f"AVOID_{asset}_HIGH_LOSS_RATE" in avoid_patterns:
             return False, f"Asset {asset} a un historique de pertes élevé"
         
-        # Check 2: Marché globalement négatif
+        # Check 2: Marché globalement négatif (blocage absolu)
         market_sum = sum(market.values())
         if market_sum < -2 and "NEGATIVE_MARKET_LARGE_LOSS" in avoid_patterns:
             return False, f"Marché global négatif ({market_sum:.2f}%) - éviter trading"
         
-        # Check 3: Gain minimal requis
-        min_gain = self.state.get("min_gain_to_open", 0.5)
+        # Check 3: Gain minimal absolu (protection contre micro-gains)
         asset_gain = market.get(asset, 0)
-        if asset_gain < min_gain:
-            return False, f"Gain {asset} ({asset_gain}%) < seuil requis ({min_gain}%)"
+        if asset_gain < 0.3:  # Blocage absolu si <0.3%
+            return False, f"Gain {asset} ({asset_gain}%) trop faible (min absolu: 0.3%)"
         
-        # Check 4: Niveau de risque actuel
+        # Check 4: Niveau de risque actuel (après pertes)
         risk_level = self.state.get("risk_level", 0.5)
         if risk_level < 0.3 and self.state.get("consecutive_losses", 0) > 0:
             return False, "Niveau de risque trop bas après pertes récentes"
         
-        return True, "Conditions favorables selon l'apprentissage"
+        # ====== LOGIQUE HYBRIDE INTELLIGENTE ======
+        min_gain = self.state.get("min_gain_to_open", 0.5)
+        win_rate = self.state.get("win_rate", 0)
+        
+        # Voie 1: Gain suffisant (méthode classique)
+        if asset_gain >= min_gain:
+            return True, f"Gain {asset_gain:.2f}% >= seuil {min_gain:.2f}%"
+        
+        # Voie 2: Opportunisme intelligent (gain modéré + conditions favorables)
+        # Permet de trader 0.3-0.8% si contexte excellent
+        if asset_gain >= 0.4:  # Entre 0.4% et min_gain
+            # Condition 2a: Excellent historique récent
+            if win_rate > 0.80 and self.state.get("consecutive_losses", 0) == 0:
+                return True, f"Opportunité: Gain {asset_gain:.2f}% + Win rate excellent ({win_rate:.1%})"
+            
+            # Condition 2b: Asset est le meilleur du marché par large marge
+            best_gain = max(market.values())
+            if asset == max(market.items(), key=lambda x: x[1])[0] and best_gain - asset_gain < 0.1:
+                # C'est le meilleur asset ET pas d'autre bien meilleur
+                return True, f"Meilleur asset disponible: {asset_gain:.2f}%"
+        
+        # Rejet avec raison détaillée
+        return False, f"Gain {asset_gain:.2f}% insuffisant (seuil: {min_gain:.2f}%, min opportuniste: 0.4%)"
     
     def get_trading_recommendation(self, market: Dict) -> Dict:
         """

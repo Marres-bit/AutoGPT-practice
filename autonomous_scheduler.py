@@ -200,6 +200,11 @@ class AutonomousScheduler:
             learning_recommendation = self.learning_engine.get_trading_recommendation(market)
             best_choice = learning_recommendation.get("best_choice")
             
+            # DEBUG: Logger les recommandations
+            _log(f"LEARNING_RECOMMENDATION: best_choice={best_choice}")
+            if best_choice:
+                _log(f"BEST_CHOICE_DETAILS: asset={best_choice.get('asset')}, should_trade={best_choice.get('should_trade')}, reason={best_choice.get('reason')}, confidence={best_choice.get('confidence')}")
+            
             # ═══════════════════════════════════════════════════════
             # 6️⃣ DÉCISION & EXÉCUTION TRADE SIMULÉ
             # ═══════════════════════════════════════════════════════
