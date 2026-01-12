@@ -71,6 +71,61 @@ class AutonomousScheduler:
         self.logger.info("Autonomous Scheduler initialisé", mode=mode_label, interval_hours=interval_hours)
         
         self.cycle_count = 0
+        
+        # Dernière date de commit auto
+        self.last_auto_commit = datetime.utcnow()
+
+    def auto_commit_changes(self, message: str = "Auto-save: mise à jour agent"):
+        """Sauvegarde automatique sur Git après modifications importantes"""
+        try:
+            import subprocess
+            
+            # Vérifier s'il y a des changements
+            result = subprocess.run(
+                ["git", "status", "--porcelain"],
+                cwd=self.project_root,
+                capture_output=True,
+                text=True,
+                timeout=5
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                # Il y a des changements
+                subprocess.run(
+                    ["git", "add", "-A"],
+                    cwd=self.project_root,
+                    capture_output=True,
+                    timeout=10
+                )
+                
+                commit_result = subprocess.run(
+                    ["git", "commit", "-m", f"{message} [{datetime.utcnow().strftime('%Y-%m-%d %H:%M')}]"],
+                    cwd=self.project_root,
+                    capture_output=True,
+                    text=True,
+                    timeout=10
+                )
+                
+                if commit_result.returncode == 0:
+                    self.logger.info("Git auto-commit réussi", message=message)
+                    print(f"[OK] Auto-commit Git: {message}")
+                    
+                    # Push automatique (optionnel)
+                    try:
+                        subprocess.run(
+                            ["git", "push", "origin", "update-name"],
+                            cwd=self.project_root,
+                            capture_output=True,
+                            timeout=30
+                        )
+                        print("[OK] Auto-push vers GitHub réussi")
+                    except Exception:
+                        pass  # Push échoue si pas de connexion, pas grave
+                        
+                self.last_auto_commit = datetime.utcnow()
+                    
+        except Exception as e:
+            self.logger.warning("Erreur auto-commit Git", error=str(e))
 
     def start(self):
         """Démarre le scheduler en arrière-plan (boucle continue)."""
@@ -532,6 +587,10 @@ class AutonomousScheduler:
                     _log(f"REPORT_DAILY_ERROR: {e}")
             
             _log(f"═══════ FIN CYCLE #{self.cycle_count} ═══════\n")
+            
+            # Auto-commit Git toutes les 4 cycles (environ 8h)
+            if self.cycle_count % 4 == 0:
+                self.auto_commit_changes(f"Auto-save: Cycle #{self.cycle_count} - Capital {summary.get('capital', 0):.2f}$")
             
             # Callback GUI
             if self.gui_callback:

@@ -21,10 +21,16 @@ class AdvancedReportingSystem:
     - Rapports détaillés avec justifications et métriques
     """
     
-    def __init__(self, project_root: Path):
+    def __init__(self, project_root: Path, timezone_offset: int = 1):
+        """
+        Args:
+            project_root: Dossier racine du projet
+            timezone_offset: Décalage horaire par rapport à UTC (Europe = +1)
+        """
         self.project_root = Path(project_root)
         self.reports_dir = self.project_root / "reports"
         self.reports_dir.mkdir(exist_ok=True)
+        self.timezone_offset = timezone_offset
         
         self.daily_summary_file = self.project_root / "daily_summary.json"
         self.cycle_history_file = self.project_root / "cycle_history.json"
@@ -591,8 +597,10 @@ class AdvancedReportingSystem:
         """Détermine s'il faut générer un rapport quotidien"""
         now = datetime.utcnow()
         
-        # Générer le rapport à minuit ou si on a au moins 1 trade dans la journée
-        if now.hour == 0 or (now.hour == 23 and len(self.daily_summary.get("trades", [])) > 0):
+        # Générer le rapport à 23h00 (fin de journée après dernier cycle)
+        local_hour = (now.hour + self.timezone_offset) % 24
+        
+        if local_hour == 23:
             return True
         
         return False
