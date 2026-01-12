@@ -57,10 +57,29 @@
         "risk_reward_ratio": 2.0,
         "position_size_pct": 9.974396355825801
       }
+    },
+    {
+      "asset": "ETH",
+      "entry_price": 1004.8,
+      "exit_price": 1024.31,
+      "amount": 770.98,
+      "pnl": 14.97,
+      "withdrawn_to_principal": 2.99,
+      "strategy_used": "Default_Conservative_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 1,
+      "timestamp": "2026-01-12T06:25:48.560201",
+      "stop_loss_price": 974.656,
+      "take_profit_price": 1065.088,
+      "risk_metrics": {
+        "kelly_pct": 23.33,
+        "risk_reward_ratio": 2.0,
+        "position_size_pct": 9.984433721583773
+      }
     }
   ],
-  "total_pnl": 58.99,
-  "winning_trades": 3,
+  "total_pnl": 73.96000000000001,
+  "winning_trades": 4,
   "losing_trades": 0,
   "best_trade": {
     "asset": "BTC",
@@ -104,8 +123,8 @@
   },
   "strategies_used": {
     "Default_Conservative_Strategy": {
-      "count": 3,
-      "wins": 3,
+      "count": 4,
+      "wins": 4,
       "win_rate": 1.0
     }
   },

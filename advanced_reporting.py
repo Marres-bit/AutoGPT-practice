@@ -189,8 +189,8 @@ class AdvancedReportingSystem:
         trade_table.cell(2, 0).text = "Prix de Sortie"
         trade_table.cell(2, 1).text = f"${trade.get('exit_price', 0):,.2f}"
         
-        trade_table.cell(3, 0).text = "Quantité Tradée"
-        trade_table.cell(3, 1).text = f"{trade.get('amount', 0):,.2f}"
+        trade_table.cell(3, 0).text = "Montant Investi (USD)"
+        trade_table.cell(3, 1).text = f"${trade.get('amount', 0):,.2f}"
         
         trade_table.cell(4, 0).text = "Fonds Retirés (Principal)"
         trade_table.cell(4, 1).text = f"${trade.get('withdrawn_to_principal', 0):.2f}"

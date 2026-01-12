@@ -154,8 +154,22 @@ class RiskManager:
         # Montant à risquer
         risk_amount = current_capital * adjusted_risk_pct
         
-        # Distance stop-loss en %
+        # Distance stop-loss en % (ajuster selon niveau de risque)
+        # MODERATE = 2%, AGGRESSIVE = 3%, CONSERVATIVE = 1.5%
+        target_stop_loss_pct = {
+            RiskLevel.CONSERVATIVE: 0.015,
+            RiskLevel.MODERATE: 0.02,
+            RiskLevel.AGGRESSIVE: 0.03,
+            RiskLevel.EXTREME: 0.05
+        }.get(self.risk_level, 0.02)
+        
         stop_loss_distance_pct = abs((entry_price - stop_loss_price) / entry_price)
+        
+        # Vérifier cohérence stop-loss
+        if stop_loss_distance_pct > target_stop_loss_pct * 1.5:
+            # Recalculer stop-loss si trop large
+            stop_loss_price = entry_price * (1 - target_stop_loss_pct)
+            stop_loss_distance_pct = target_stop_loss_pct
         
         # Taille de position basée sur stop-loss
         if stop_loss_distance_pct > 0:
@@ -174,7 +188,7 @@ class RiskManager:
         
         if avg_loss > 0:
             kelly_pct = (win_rate * avg_win - (1 - win_rate) * avg_loss) / avg_win
-            kelly_pct = max(0, min(kelly_pct, 0.25))  # Cap à 25%
+            kelly_pct = max(0, min(kelly_pct, 0.10))  # Cap à 10% (sécurité)
         else:
             kelly_pct = base_risk_pct
         

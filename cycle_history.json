@@ -862,5 +862,41 @@
       "principal": 3184.27,
       "investment": 7709.84
     }
+  },
+  {
+    "timestamp": "2026-01-12T06:25:48.631766",
+    "trade": {
+      "asset": "ETH",
+      "entry_price": 1004.8,
+      "exit_price": 1024.31,
+      "amount": 770.98,
+      "pnl": 14.97,
+      "withdrawn_to_principal": 2.99,
+      "strategy_used": "Default_Conservative_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 1,
+      "timestamp": "2026-01-12T06:25:48.560201",
+      "stop_loss_price": 974.656,
+      "take_profit_price": 1065.088,
+      "risk_metrics": {
+        "kelly_pct": 23.33,
+        "risk_reward_ratio": 2.0,
+        "position_size_pct": 9.984433721583773
+      }
+    },
+    "market": {
+      "BTC": 1.473,
+      "ETH": 2.074,
+      "SOL": 4.985,
+      "BNB": -0.405
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 14.97,
+    "win_rate": 0.889,
+    "strategy": "Default_Conservative_Strategy",
+    "capital": {
+      "principal": 3187.26,
+      "investment": 7721.82
+    }
   }
 ]

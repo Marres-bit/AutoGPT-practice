@@ -1,10 +1,10 @@
 {
   "min_gain_to_open": 0.8,
   "consecutive_losses": 0,
-  "total_trades": 35,
-  "winning_trades": 31,
+  "total_trades": 36,
+  "winning_trades": 32,
   "losing_trades": 4,
-  "win_rate": 0.886,
+  "win_rate": 0.889,
   "max_loss_threshold": -15,
   "min_win_threshold": 10.0,
   "risk_level": 0.8,
@@ -16,5 +16,5 @@
   "lessons_learned": [
     "Ne pas ouvrir de position quand le march\u00e9 global est n\u00e9gatif"
   ],
-  "last_updated": "2026-01-12T04:25:44.817114"
+  "last_updated": "2026-01-12T06:25:48.564724"
 }

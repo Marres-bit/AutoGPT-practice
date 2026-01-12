@@ -472,5 +472,25 @@
     ],
     "avoidable": false,
     "improvement_score": 0.0
+  },
+  {
+    "timestamp": "2026-01-12T06:25:48.561166",
+    "trade_id": "2026-01-12T06:25:48.560201",
+    "asset": "ETH",
+    "pnl": 14.97,
+    "entry_price": 1004.8,
+    "exit_price": 1024.31,
+    "market_conditions": {
+      "BTC": 1.473,
+      "ETH": 2.074,
+      "SOL": 4.985,
+      "BNB": -0.405
+    },
+    "errors_identified": [],
+    "lessons": [
+      "Trade gagnant - renforcer ce pattern"
+    ],
+    "avoidable": false,
+    "improvement_score": 0.0
   }
 ]

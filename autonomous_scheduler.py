@@ -244,8 +244,8 @@ class AutonomousScheduler:
             # Protection contre None
             if current_strategy is None:
                 current_strategy = {
-                    "name": "Default_Conservative_Strategy",
-                    "type": "conservative",
+                    "name": "Moderate_Balanced_Strategy",
+                    "type": "moderate",
                     "confidence": 0.5,
                     "rules": []
                 }

@@ -289,10 +289,10 @@ class StrategyFusionEngine:
         return adjusted
     
     def _create_default_fusion(self) -> Dict:
-        """Crée une fusion par défaut conservatrice"""
+        """Crée une fusion par défaut équilibrée"""
         return {
-            "name": "Default_Conservative_Strategy",
-            "type": "default",
+            "name": "Moderate_Balanced_Strategy",
+            "type": "moderate",
             "created_at": datetime.utcnow().isoformat(),
             "rules": [
                 {
