@@ -97,10 +97,24 @@
       }
     },
     {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
     {}
   ],
   "total_pnl": 98.56,
-  "winning_trades": 7,
+  "winning_trades": 21,
   "losing_trades": 0,
   "best_trade": {
     "asset": "BTC",
@@ -132,8 +146,13 @@
       "win_rate": 1.0
     },
     "Moderate_Balanced_Strategy": {
-      "count": 3,
-      "wins": 3,
+      "count": 11,
+      "wins": 11,
+      "win_rate": 1.0
+    },
+    "Strat\u00e9gie par d\u00e9faut": {
+      "count": 6,
+      "wins": 6,
       "win_rate": 1.0
     }
   },

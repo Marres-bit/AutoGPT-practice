@@ -214,12 +214,19 @@ class CommandHandler:
         try:
             json_data = self.database.export_all_lessons()
             
-            # Sauvegarder dans un fichier
+            # Sauvegarder dans un fichier nommé "Pflege azubis"
             from pathlib import Path
             from datetime import datetime
             
-            filename = f"medical_lessons_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            filepath = Path.home() / "Desktop" / filename
+            # Utiliser le nom configuré + date
+            from medical_agent.config import DOCUMENT_NAME, OUTPUT_FOLDER
+            
+            # Créer dossier de sortie
+            output_dir = Path.home() / "Desktop" / OUTPUT_FOLDER
+            output_dir.mkdir(exist_ok=True)
+            
+            filename = f"{DOCUMENT_NAME}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            filepath = output_dir / filename
             
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(json_data)

@@ -1,6 +1,7 @@
 """
 Medical AI Agent - Point d'entrée principal
 Lance l'application complète d'assistant médical autonome
+AVEC MODULE GEIS (Global Extreme Insanity Scanner)
 """
 
 import sys
@@ -15,7 +16,7 @@ from medical_agent.scheduler import test_scheduler
 
 
 def main():
-    parser = argparse.ArgumentParser(description="� MediGenius AI - Assistant Médical Intelligent")
+    parser = argparse.ArgumentParser(description="🧠 MediGenius AI + 🔥 GEIS - Dual Mode Agent")
     parser.add_argument("--test-scheduler", action="store_true", 
                        help="Tester le scheduler (génère une leçon test)")
     parser.add_argument("--generate", type=int, metavar="N",
@@ -25,14 +26,83 @@ def main():
     parser.add_argument("--no-gui", action="store_true",
                        help="Mode daemon sans interface (scheduler seulement)")
     
+    # === NOUVEAUX ARGUMENTS GEIS ===
+    parser.add_argument("--geis-scan", action="store_true",
+                       help="🔥 Lancer un scan GEIS immédiat")
+    parser.add_argument("--geis-daemon", action="store_true",
+                       help="🔥 Activer GEIS en mode daemon (scan toutes les 5h)")
+    parser.add_argument("--geis-config", action="store_true",
+                       help="🔥 Afficher la configuration GEIS")
+    
     args = parser.parse_args()
     
     try:
-        print("="*60)
-        print("� MEDIGENIUS AI - ASSISTANT MÉDICAL INTELLIGENT")
-        print("="*60)
+        print("="*70)
+        print("🧠 MEDIGENIUS AI + 🔥 GEIS - DUAL MODE AGENT")
+        print("   Medical Intelligence + Global Extreme Insanity Scanner")
+        print("="*70)
         print()
         
+        # === GEIS COMMANDS ===
+        if args.geis_config:
+            print("🔥 CONFIGURATION GEIS\n")
+            from insanity_scanner import GEISConfig
+            config = GEISConfig()
+            print(f"📁 Dossier de sortie: {config.output_dir}")
+            print(f"🎯 Score minimal: {config.min_insanity_score}/10")
+            print(f"📊 Max résultats/scan: {config.max_results_per_scan}")
+            print(f"⏰ Intervalle: {config.scan_interval_hours}h")
+            print(f"📡 Sources: {', '.join(config.enabled_sources)}")
+            print(f"📅 Age max contenu: {config.max_content_age_days} jours")
+            return
+        
+        if args.geis_scan:
+            print("🔥 LANCEMENT SCAN GEIS\n")
+            from insanity_scanner import InsanityScanner
+            scanner = InsanityScanner()
+            stats = scanner.scan()
+            
+            print("\n📊 RÉSULTATS:")
+            print(f"  Sources scannées: {stats['sources_scanned']}")
+            print(f"  Items trouvés: {stats['raw_items_found']}")
+            print(f"  Rapports générés: {stats['reports_generated']}")
+            print(f"  Durée: {stats['duration_seconds']:.1f}s")
+            
+            if stats['errors']:
+                print(f"\n⚠️ Erreurs: {len(stats['errors'])}")
+            return
+        
+        if args.geis_daemon:
+            print("🔥 MODE DAEMON GEIS ACTIVÉ\n")
+            from insanity_scanner import InsanityScanner
+            import time
+            import schedule
+            
+            scanner = InsanityScanner()
+            
+            def run_scan():
+                print(f"\n[{time.strftime('%Y-%m-%d %H:%M:%S')}] 🔥 Scan GEIS...")
+                stats = scanner.scan()
+                print(f"✅ {stats['reports_generated']} rapports générés\n")
+            
+            # Planifier scan toutes les 5h
+            schedule.every(5).hours.do(run_scan)
+            
+            # Premier scan immédiat
+            run_scan()
+            
+            print("⏰ Scan toutes les 5 heures activé")
+            print("💡 Appuyez sur Ctrl+C pour arrêter\n")
+            
+            try:
+                while True:
+                    schedule.run_pending()
+                    time.sleep(60)
+            except KeyboardInterrupt:
+                print("\n⏸️ Arrêt GEIS daemon")
+            return
+        
+        # === MEDICAL COMMANDS (EXISTANTS) ===
         if args.test_scheduler:
             # Test du scheduler
             print("🧪 Mode test du scheduler\n")

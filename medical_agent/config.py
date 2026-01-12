@@ -6,8 +6,11 @@ Medical AI Agent - Configuration
 OPENAI_API_KEY = ""  # Sera chargé depuis .env
 
 # Agent Settings
-AGENT_NAME = "MediGenius AI - Assistant Médical Intelligent"
+AGENT_NAME = "MediGenius AI - Pflege Ausbildung (DE)"
 AGENT_MODEL = "gpt-4o-mini"
+AGENT_LANGUAGE = "de"  # Langue: allemand
+DOCUMENT_NAME = "Pflege azubis"  # Nom du document de sortie
+OUTPUT_FOLDER = "Pflege ausbildung"  # Dossier de sortie sur Bureau
 
 # Cloud Database Settings
 USE_CLOUD_DATABASE = True
@@ -20,32 +23,32 @@ LESSONS_PER_WEEK = 3  # Nombre de leçons générées automatiquement par semain
 LESSON_GENERATION_DAYS = [1, 3, 5]  # Lundi, Mercredi, Vendredi (0=Lundi, 6=Dimanche)
 LESSON_GENERATION_TIME = "09:00"  # Heure de génération automatique
 
-# Medical Topics Categories
+# Medical Topics Categories (Allemand - Pflege)
 MEDICAL_CATEGORIES = [
-    "Cardiologie",
+    "Kardiologie",
     "Neurologie",
     "Pneumologie",
-    "Gastro-entérologie",
-    "Endocrinologie",
-    "Néphrologie",
-    "Rhumatologie",
+    "Gastroenterologie",
+    "Endokrinologie",
+    "Nephrologie",
+    "Rheumatologie",
     "Dermatologie",
-    "Oncologie",
-    "Hématologie",
-    "Infectiologie",
-    "Pédiatrie",
-    "Gynécologie-Obstétrique",
+    "Onkologie",
+    "Hämatologie",
+    "Infektiologie",
+    "Pädiatrie",
+    "Gynäkologie",
     "Urologie",
-    "Ophtalmologie",
-    "ORL",
+    "Ophthalmologie",
+    "HNO",
     "Psychiatrie",
-    "Urgences",
-    "Médecine Générale",
-    "Pharmacologie"
+    "Notfallmedizin",
+    "Geriatrie",
+    "Palliativpflege"
 ]
 
-# Lesson Difficulty Levels
-DIFFICULTY_LEVELS = ["Débutant", "Intermédiaire", "Avancé", "Expert"]
+# Lesson Difficulty Levels (Allemand)
+DIFFICULTY_LEVELS = ["Anfänger", "Fortgeschritten", "Experte"]
 
 # Database Settings
 DATABASE_PATH = "medical_lessons.db"
@@ -107,21 +110,29 @@ LESSON_STRUCTURE = {
     }
 }
 
-# Auto-generation prompts
+# Auto-generation prompts (ALLEMAND)
 LESSON_GENERATION_PROMPT = """
-Tu es un professeur de médecine expert. Génère une leçon complète et structurée sur le sujet suivant : {topic}
+Du bist ein Experte für Krankenpflege und Pflegeausbildung. Erstelle eine vollständige und strukturierte Lektion auf Deutsch zum folgenden Thema: {topic}
 
-La leçon doit être de niveau {difficulty} et couvrir :
-1. Introduction et définition
-2. Physiopathologie détaillée
-3. Diagnostic (clinique et paraclinique)
-4. Diagnostic différentiel
-5. Traitement (médical et chirurgical si applicable)
-6. Complications possibles
-7. Pronostic
-8. Points clés à retenir
+Die Lektion muss auf Niveau {difficulty} sein und folgendes abdecken:
+1. Einleitung und Definition
+2. Pathophysiologie
+3. Klinische Merkmale und Symptome
+4. Diagnostische Verfahren
+5. Differentialdiagnosen
+6. Behandlung (medikamentös und pflegerisch)
+7. Mögliche Komplikationen
+8. Prognose
+9. Wichtige Punkte zum Merken
 
-Format la réponse de manière claire et professionnelle pour des étudiants en médecine.
+⚠️ WICHTIG: Füge am Ende einen detaillierten "PFLEGEPLANUNG" Abschnitt hinzu mit:
+   - Pflegediagnosen
+   - Pflegeziele (kurz- und langfristig)
+   - Pflegemaßnahmen (konkret und umsetzbar)
+   - Evaluation
+
+Formatiere die Antwort klar und professionell für Pflegeschüler (Azubis).
+Alle Inhalte MÜSSEN auf DEUTSCH sein.
 """
 
 QUIZ_GENERATION_PROMPT = """

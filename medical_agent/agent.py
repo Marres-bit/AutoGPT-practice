@@ -80,7 +80,7 @@ class MedicalAIAgent:
             response = openai.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "Tu es un professeur de médecine expert qui crée des leçons détaillées et pédagogiques."},
+                    {"role": "system", "content": "Du bist ein Experte für Krankenpflege und Pflegeausbildung. Du erstellst detaillierte und pädagogische Lektionen auf DEUTSCH für Pflegeschüler (Azubis)."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=self.temperature,
