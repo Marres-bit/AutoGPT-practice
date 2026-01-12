@@ -1,10 +1,9 @@
-Résumé cycle #2 - 2026-01-12T06:54:40.704841Z
+Résumé cycle #2 - 2026-01-12T07:21:33.378191Z
 Condition marché: sideways_market
 Stratégie: Moderate_Balanced_Strategy
-Top hausses: {'SOL': 4.308}
-Top baisses: {'BNB': -0.727}
-Décision: OPEN_LONG
-Trade: BTC P&L=$24.60
+Top hausses: {'SOL': 4.301}
+Top baisses: {'BNB': -0.988}
+Décision: HOLD
 Capital: Principal=$3195.05 Investment=$7752.97
 
 📊 Performance:

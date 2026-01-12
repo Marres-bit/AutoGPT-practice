@@ -387,15 +387,12 @@ class AutonomousScheduler:
                             pnl = round((exit_price - entry_price) * quantity, 2)
                             
                             # 📊 UPDATE RISK MANAGER avec résultat trade
+                            # Calculer capital actuel pour update
+                            updated_capital = capital["investment"] + pnl
                             self.risk_manager.update_after_trade(
+                                current_capital=updated_capital,
                                 pnl=pnl,
-                                was_win=(pnl > 0),
-                                trade_info={
-                                    "asset": asset,
-                                    "entry": entry_price,
-                                    "exit": exit_price,
-                                    "confidence": confidence
-                                }
+                                was_win=(pnl > 0)
                             )
                             
                             # 📝 Logger l'exécution du trade
