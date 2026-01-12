@@ -37,9 +37,27 @@ class ExchangeConnector:
                 self.exchange.set_sandbox_mode(True)
                 logging.info("✅ Connecté à Binance Testnet")
             else:
-                # Production (désactivé pour sécurité)
-                logging.warning("⚠️ Mode production désactivé pour sécurité")
-                self.exchange = None
+                # Production - Nécessite clés API dans variables d'environnement
+                import os
+                api_key = os.getenv("BINANCE_API_KEY")
+                api_secret = os.getenv("BINANCE_API_SECRET")
+                
+                if not api_key or not api_secret:
+                    logging.error("❌ PRODUCTION: Variables BINANCE_API_KEY et BINANCE_API_SECRET requises")
+                    logging.error("   Export BINANCE_API_KEY='votre_cle'")
+                    logging.error("   Export BINANCE_API_SECRET='votre_secret'")
+                    raise ValueError("Clés API Binance manquantes pour mode production")
+                
+                self.exchange = ccxt.binance({
+                    'apiKey': api_key,
+                    'secret': api_secret,
+                    'enableRateLimit': True,
+                    'options': {
+                        'defaultType': 'spot',  # Spot trading pour production
+                    }
+                })
+                logging.info("✅ Connecté à Binance PRODUCTION (ARGENT RÉEL)")
+                logging.warning("⚠️⚠️⚠️ MODE RÉEL ACTIVÉ - ARGENT RÉEL EN JEU ⚠️⚠️⚠️")
                 
         except Exception as e:
             logging.error(f"❌ Erreur connexion exchange: {e}")

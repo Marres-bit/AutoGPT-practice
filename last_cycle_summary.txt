@@ -1,8 +1,8 @@
-Résumé cycle #2 - 2026-01-12T07:21:33.378191Z
+Résumé cycle #2 - 2026-01-12T07:27:52.673226Z
 Condition marché: sideways_market
 Stratégie: Moderate_Balanced_Strategy
-Top hausses: {'SOL': 4.301}
-Top baisses: {'BNB': -0.988}
+Top hausses: {'SOL': 4.366}
+Top baisses: {'BNB': -0.9}
 Décision: HOLD
 Capital: Principal=$3195.05 Investment=$7752.97
 
@@ -12,7 +12,7 @@ Capital: Principal=$3195.05 Investment=$7752.97
   Niveau Risque: 0.80
 
 🛡️ Risk Manager:
-  Drawdown Actuel: 0.00%
+  Drawdown Actuel: 21.88%
   Max Drawdown Limite: 20.00%
   Trades Consécutifs Perdants: 0
-  Emergency Stop: 🟢 Inactif
+  Emergency Stop: 🔴 ACTIF

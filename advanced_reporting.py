@@ -251,8 +251,8 @@ class AdvancedReportingSystem:
         # ═══════════════════════════════════════════════════════
         doc.add_heading('🎯 Stratégie de Trading Utilisée', 1)
         
-        # Protection contre None
-        if strategy_info is None:
+        # Protection contre None ET contre types incorrects (fonction, etc.)
+        if strategy_info is None or not isinstance(strategy_info, dict):
             strategy_info = {"name": "Stratégie par défaut", "type": "Conservative", "confidence": 0.5, "rules": []}
         
         strategy_name = strategy_info.get("name", "Stratégie par défaut")

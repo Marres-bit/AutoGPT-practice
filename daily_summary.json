@@ -96,10 +96,11 @@
         "position_size_pct": 9.974629077630896
       }
     },
+    {},
     {}
   ],
   "total_pnl": 98.56,
-  "winning_trades": 6,
+  "winning_trades": 7,
   "losing_trades": 0,
   "best_trade": {
     "asset": "BTC",
@@ -131,8 +132,8 @@
       "win_rate": 1.0
     },
     "Moderate_Balanced_Strategy": {
-      "count": 2,
-      "wins": 2,
+      "count": 3,
+      "wins": 3,
       "win_rate": 1.0
     }
   },

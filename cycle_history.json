@@ -952,5 +952,23 @@
       "principal": 3195.05,
       "investment": 7752.97
     }
+  },
+  {
+    "timestamp": "2026-01-12T07:27:52.718747",
+    "trade": {},
+    "market": {
+      "BTC": 1.114,
+      "ETH": 1.94,
+      "SOL": 4.366,
+      "BNB": -0.9
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.895,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
   }
 ]
