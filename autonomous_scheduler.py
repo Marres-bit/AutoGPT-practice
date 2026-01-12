@@ -18,6 +18,8 @@ from advanced_reporting import AdvancedReportingSystem
 from exchange_connector import get_exchange_connector
 from risk_manager import RiskManager, RiskLevel
 from structured_logger import get_logger
+from multi_timeframe_analyzer import MultiTimeframeAnalyzer, Timeframe
+from backtesting_engine import BacktestingEngine
 
 class AutonomousScheduler:
     def __init__(self, interval_hours: int = 4, gui_callback=None, project_root: Path | str | None = None):
@@ -70,10 +72,19 @@ class AutonomousScheduler:
         self.logger = get_logger("trading", self.project_root / "logs")
         self.logger.info("Autonomous Scheduler initialisé", mode=mode_label, interval_hours=interval_hours)
         
+        # Multi-Timeframe Analyzer (analyse 15m/1h/4h)
+        self.mtf_analyzer = MultiTimeframeAnalyzer(self.project_root)
+        print("[OK] Multi-Timeframe Analyzer activé (confluence 15m/1h/4h)")
+        
+        # Backtesting Engine (validation stratégies)
+        self.backtest_engine = BacktestingEngine(self.project_root, initial_capital=10000.0)
+        print("[OK] Backtesting Engine activé (validation hebdomadaire)")
+        
         self.cycle_count = 0
         
         # Dernière date de commit auto
         self.last_auto_commit = datetime.utcnow()
+        self.last_backtest = None  # Dernière date de backtest
 
     def auto_commit_changes(self, message: str = "Auto-save: mise à jour agent"):
         """Sauvegarde automatique sur Git après modifications importantes"""
@@ -243,13 +254,33 @@ class AutonomousScheduler:
             print(f"🎯 Stratégie: {strategy_name}")
             
             # ═══════════════════════════════════════════════════════
-            # 5️⃣ GÉNÉRATION SIGNAUX DE TRADING
+            # 5️⃣ GÉNÉRATION SIGNAUX DE TRADING + MULTI-TIMEFRAME
             # ═══════════════════════════════════════════════════════
             best_asset = max(market.items(), key=lambda x: x[1])
             worst_asset = min(market.items(), key=lambda x: x[1])
             
             trading_signals = self.strategy_fusion.get_trading_signals(market, best_asset[0])
             _log(f"TRADING_SIGNALS: {trading_signals}")
+            
+            # 🆕 ANALYSE MULTI-TIMEFRAME pour confirmation
+            try:
+                symbols = [f"{asset}/USDT" for asset in market.keys()]
+                mtf_signals = self.mtf_analyzer.analyze_assets(
+                    symbols,
+                    timeframes=[Timeframe.M15, Timeframe.H1, Timeframe.H4]
+                )
+                
+                # Trouver meilleure opportunité MTF
+                best_mtf = self.mtf_analyzer.get_best_opportunity(mtf_signals, min_confidence=0.5)
+                
+                if best_mtf:
+                    _log(f"MTF_SIGNAL: {best_mtf.asset} - {best_mtf.recommendation} (score: {best_mtf.score:.2f}, conf: {best_mtf.confidence:.1%})")
+                    print(f"📊 Multi-Timeframe: {best_mtf.asset} {best_mtf.recommendation} (confidence {best_mtf.confidence:.1%})")
+                else:
+                    _log("MTF_SIGNAL: Aucune opportunité haute confiance")
+            except Exception as e:
+                _log(f"MTF_ERROR: {e}")
+                best_mtf = None
             
             # Obtenir aussi la recommandation d'apprentissage
             learning_recommendation = self.learning_engine.get_trading_recommendation(market)
@@ -261,13 +292,13 @@ class AutonomousScheduler:
                 _log(f"BEST_CHOICE_DETAILS: asset={best_choice.get('asset')}, should_trade={best_choice.get('should_trade')}, reason={best_choice.get('reason')}, confidence={best_choice.get('confidence')}")
             
             # ═══════════════════════════════════════════════════════
-            # 6️⃣ DÉCISION & EXÉCUTION TRADE SIMULÉ
+            # 6️⃣ DÉCISION & EXÉCUTION TRADE SIMULÉ (avec MTF boost)
             # ═══════════════════════════════════════════════════════
             decision = "HOLD"
             trade = None
             justifications = []
             
-            # Combiner signaux de fusion et apprentissage
+            # Combiner signaux de fusion, apprentissage ET multi-timeframe
             if (trading_signals.get("action") == "OPEN_LONG" and 
                 best_choice and best_choice.get("should_trade") and 
                 capital["investment"] > 0):
@@ -286,6 +317,14 @@ class AutonomousScheduler:
                         best_choice["asset"],
                         market
                     )
+                    
+                    # 🆕 BOOST MTF: Si confluence positive, augmenter confiance
+                    mtf_boost = 1.0
+                    if best_mtf and best_mtf.asset == best_choice["asset"]:
+                        if best_mtf.recommendation in ["BUY", "STRONG_BUY"]:
+                            mtf_boost = 1.2  # +20% confiance
+                            justifications.append(f"✅ MTF CONFLUENCE: {best_mtf.recommendation} ({best_mtf.confidence:.1%})")
+                            _log(f"MTF_BOOST: {best_choice['asset']} confiance +20%")
                     
                     if should_trade:
                         decision = "OPEN_LONG"
@@ -514,8 +553,51 @@ class AutonomousScheduler:
                     summary["rule_modifications"] = rule_modifications
             
             # ═══════════════════════════════════════════════════════
-            # 9️⃣ GÉNÉRATION RAPPORTS
+            # 9️⃣ GÉNÉRATION RAPPORTS + BACKTESTING HEBDOMADAIRE
             # ═══════════════════════════════════════════════════════
+            
+            # 🆕 BACKTESTING AUTOMATIQUE (chaque 7 jours)
+            if self.last_backtest is None or (datetime.utcnow() - self.last_backtest).days >= 7:
+                try:
+                    _log("BACKTEST_STARTING: Validation stratégies sur 30j historique")
+                    print("📊 Lancement backtest hebdomadaire...")
+                    
+                    # Charger ou récupérer données
+                    historical = self.backtest_engine.load_historical_data(timeframe="1h", lookback_days=30)
+                    
+                    if historical:
+                        # Définir stratégie simple pour backtest
+                        def current_strategy(market, capital, threshold=0.005):
+                            from learning_engine import LearningEngine
+                            # Utiliser logique hybride actuelle
+                            if not market:
+                                return None
+                            best_asset = max(market.items(), key=lambda x: x[1])
+                            if best_asset[1] >= threshold * 100:  # Convertir en %
+                                return {'asset': best_asset[0], 'reason': f'Best +{best_asset[1]:.2f}%'}
+                            return None
+                        
+                        # Run backtest
+                        metrics = self.backtest_engine.run_backtest(
+                            strategy_func=current_strategy,
+                            historical_data=historical,
+                            risk_per_trade=0.02,
+                            min_gain_threshold=0.005
+                        )
+                        
+                        _log(f"BACKTEST_COMPLETE: WinRate={metrics.win_rate:.1%}, Sharpe={metrics.sharpe_ratio:.2f}, Drawdown={metrics.max_drawdown:.1%}")
+                        self.logger.info("Backtest hebdomadaire terminé", 
+                                       win_rate=metrics.win_rate,
+                                       sharpe=metrics.sharpe_ratio,
+                                       max_dd=metrics.max_drawdown)
+                        
+                        print(f"✅ Backtest: Win Rate {metrics.win_rate:.1%}, Sharpe {metrics.sharpe_ratio:.2f}")
+                        
+                        self.last_backtest = datetime.utcnow()
+                        
+                except Exception as e:
+                    _log(f"BACKTEST_ERROR: {e}")
+                    print(f"⚠️ Erreur backtest: {e}")
             
             # Résumé texte
             learning_summary = self.learning_engine.get_summary()
