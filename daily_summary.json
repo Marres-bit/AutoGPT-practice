@@ -76,10 +76,29 @@
         "risk_reward_ratio": 2.0,
         "position_size_pct": 9.984433721583773
       }
+    },
+    {
+      "asset": "BTC",
+      "entry_price": 993.52,
+      "exit_price": 1025.12,
+      "amount": 773.33,
+      "pnl": 24.6,
+      "withdrawn_to_principal": 4.92,
+      "strategy_used": "Moderate_Balanced_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 0.9750000000000001,
+      "timestamp": "2026-01-12T06:54:40.703976",
+      "stop_loss_price": 963.7144,
+      "take_profit_price": 1053.1312,
+      "risk_metrics": {
+        "kelly_pct": 10.0,
+        "risk_reward_ratio": 2.0,
+        "position_size_pct": 9.974629077630896
+      }
     }
   ],
-  "total_pnl": 73.96000000000001,
-  "winning_trades": 4,
+  "total_pnl": 98.56,
+  "winning_trades": 5,
   "losing_trades": 0,
   "best_trade": {
     "asset": "BTC",
@@ -125,6 +144,11 @@
     "Default_Conservative_Strategy": {
       "count": 4,
       "wins": 4,
+      "win_rate": 1.0
+    },
+    "Moderate_Balanced_Strategy": {
+      "count": 1,
+      "wins": 1,
       "win_rate": 1.0
     }
   },

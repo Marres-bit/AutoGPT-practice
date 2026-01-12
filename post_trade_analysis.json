@@ -492,5 +492,45 @@
     ],
     "avoidable": false,
     "improvement_score": 0.0
+  },
+  {
+    "timestamp": "2026-01-12T06:54:23.661028",
+    "trade_id": "2026-01-12T06:54:23.660162",
+    "asset": "BTC",
+    "pnl": 14.34,
+    "entry_price": 1005.1,
+    "exit_price": 1023.77,
+    "market_conditions": {
+      "BTC": 1.266,
+      "ETH": 1.864,
+      "SOL": 4.315,
+      "BNB": -0.73
+    },
+    "errors_identified": [],
+    "lessons": [
+      "Trade gagnant - renforcer ce pattern"
+    ],
+    "avoidable": false,
+    "improvement_score": 0.0
+  },
+  {
+    "timestamp": "2026-01-12T06:54:40.704875",
+    "trade_id": "2026-01-12T06:54:40.703976",
+    "asset": "BTC",
+    "pnl": 24.6,
+    "entry_price": 993.52,
+    "exit_price": 1025.12,
+    "market_conditions": {
+      "BTC": 1.266,
+      "ETH": 1.856,
+      "SOL": 4.308,
+      "BNB": -0.727
+    },
+    "errors_identified": [],
+    "lessons": [
+      "Trade gagnant - renforcer ce pattern"
+    ],
+    "avoidable": false,
+    "improvement_score": 0.0
   }
 ]

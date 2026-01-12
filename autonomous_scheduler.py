@@ -410,26 +410,27 @@ class AutonomousScheduler:
                                 take_profit=take_profit_price
                             )
                             
+                            # Validation: Prix réel doit être > 100$ (éviter prix simulés)
+                            if entry_price < 100:
+                                _log(f"ERROR: Prix invalide {entry_price:.2f} pour {asset}, probablement erreur API")
+                                raise ValueError(f"Prix anormalement bas: {entry_price:.2f}")
+                            
                             _log(f"PRICE_REAL: {asset} entrée={entry_price:.2f} sortie={exit_price:.2f} qty={quantity:.6f}")
+                            _log(f"TRADE_SOURCE: Prix réels Binance Testnet utilisés")
                         except Exception as e:
-                            _log(f"WARNING: Prix réel échoué, fallback simulation: {e}")
-                            self.logger.error("Erreur fetch prix exchange, fallback simulation", error=str(e), asset=asset)
+                            # 🚨 ÉCHEC CRITIQUE: Impossible d'obtenir les prix réels
+                            _log(f"ERROR_CRITICAL: Impossible récupérer prix réels pour {asset}: {e}")
+                            self.logger.error("ÉCHEC CRITIQUE: Prix réels indisponibles", error=str(e), asset=asset)
                             
-                            # Fallback: position size basique
-                            position_size = 0.1  # 10% conservateur
-                            amount = round(capital["investment"] * position_size, 2)
-                            
-                            entry_price = round(1000 * (1 + random.uniform(-0.01, 0.01)), 2)
-                            market_move = market.get(asset, 0)
-                            exit_move = random.uniform(market_move - 1, market_move + 2)
-                            exit_price = round(entry_price * (1 + exit_move / 100), 2)
-                            quantity = amount / entry_price
-                            pnl = round((exit_price - entry_price) * quantity, 2)
-                            
-                            stop_loss_price = entry_price * 0.97
-                            take_profit_price = entry_price * 1.06
-                    
-                    # Mise à jour capital
+                            # Ne PAS trader si les prix réels sont indisponibles
+                            print(f"❌ TRADE ANNULÉ: Prix réels indisponibles pour {asset}")
+                            decision = "HOLD"
+                            justifications.append(f"❌ Trade annulé: Prix réels indisponibles ({e})")
+                            trade = None
+                            # Passer au calcul capital sans trade
+                        
+                        # Mise à jour capital seulement si trade réussi
+                        if trade is not None:
                             capital["investment"] = round(capital["investment"] + pnl, 2)
                             withdrawn = 0.0
                             if pnl > 0:
@@ -477,11 +478,7 @@ class AutonomousScheduler:
                             
                             _log(f"TRADE_EXECUTED: {trade}")
                             print(f"✅ Trade exécuté: {asset} P&L=${pnl:.2f}")
-                        except Exception as e:
-                            _log(f"WARNING: Prix réel échoué, fallback simulation: {e}")
-                            self.logger.error("Erreur fetch prix exchange, fallback simulation", error=str(e), asset=asset)
-                            decision = "HOLD"
-                            justifications.append(f"❌ Erreur technique: {str(e)}")
+                    
                     else:
                         decision = f"HOLD"
                         justifications.append(f"Signal bloqué par apprentissage: {reason}")

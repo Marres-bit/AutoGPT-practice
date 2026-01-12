@@ -1,15 +1,15 @@
-Résumé cycle #6 - 2026-01-12T06:25:48.561066Z
-Condition marché: bull_market
-Stratégie: Default_Conservative_Strategy
-Top hausses: {'SOL': 4.985}
-Top baisses: {'BNB': -0.405}
+Résumé cycle #2 - 2026-01-12T06:54:40.704841Z
+Condition marché: sideways_market
+Stratégie: Moderate_Balanced_Strategy
+Top hausses: {'SOL': 4.308}
+Top baisses: {'BNB': -0.727}
 Décision: OPEN_LONG
-Trade: ETH P&L=$14.97
-Capital: Principal=$3187.26 Investment=$7721.82
+Trade: BTC P&L=$24.60
+Capital: Principal=$3195.05 Investment=$7752.97
 
 📊 Performance:
-  Win Rate: 88.9%
-  Total Trades: 36
+  Win Rate: 89.5%
+  Total Trades: 38
   Niveau Risque: 0.80
 
 🛡️ Risk Manager:
