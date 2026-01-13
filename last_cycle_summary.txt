@@ -1,8 +1,8 @@
-Résumé cycle #2 - 2026-01-12T19:02:44.331115Z
+Résumé cycle #6 - 2026-01-13T03:21:28.300606Z
 Condition marché: sideways_market
 Stratégie: Moderate_Balanced_Strategy
-Top hausses: {'SOL': 0.679}
-Top baisses: {'ETH': -1.0}
+Top hausses: {'BNB': -0.61}
+Top baisses: {'SOL': -3.745}
 Décision: HOLD
 Capital: Principal=$3195.05 Investment=$7752.97
 

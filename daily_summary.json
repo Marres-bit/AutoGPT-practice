@@ -1,158 +1,22 @@
 {
-  "date": "2026-01-12",
+  "date": "2026-01-13",
   "trades": [
-    {
-      "asset": "ETH",
-      "entry_price": 1002.77,
-      "exit_price": 1030.65,
-      "amount": 766.26,
-      "pnl": 21.3,
-      "withdrawn_to_principal": 4.26,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-12T00:25:35.920187",
-      "stop_loss_price": 972.6868999999999,
-      "take_profit_price": 1062.9362,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.97774649757998
-      }
-    },
-    {
-      "asset": "BTC",
-      "entry_price": 1006.89,
-      "exit_price": 1023.91,
-      "amount": 767.97,
-      "pnl": 12.98,
-      "withdrawn_to_principal": 2.6,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-12T02:25:40.662148",
-      "stop_loss_price": 976.6832999999999,
-      "take_profit_price": 1067.3034,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.98651507723597
-      }
-    },
-    {
-      "asset": "BTC",
-      "entry_price": 1002.22,
-      "exit_price": 1034.42,
-      "amount": 769.01,
-      "pnl": 24.71,
-      "withdrawn_to_principal": 4.94,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-12T04:25:44.810041",
-      "stop_loss_price": 972.1534,
-      "take_profit_price": 1062.3532,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.974396355825801
-      }
-    },
-    {
-      "asset": "ETH",
-      "entry_price": 1004.8,
-      "exit_price": 1024.31,
-      "amount": 770.98,
-      "pnl": 14.97,
-      "withdrawn_to_principal": 2.99,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 1,
-      "timestamp": "2026-01-12T06:25:48.560201",
-      "stop_loss_price": 974.656,
-      "take_profit_price": 1065.088,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.984433721583773
-      }
-    },
-    {
-      "asset": "BTC",
-      "entry_price": 993.52,
-      "exit_price": 1025.12,
-      "amount": 773.33,
-      "pnl": 24.6,
-      "withdrawn_to_principal": 4.92,
-      "strategy_used": "Moderate_Balanced_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-12T06:54:40.703976",
-      "stop_loss_price": 963.7144,
-      "take_profit_price": 1053.1312,
-      "risk_metrics": {
-        "kelly_pct": 10.0,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.974629077630896
-      }
-    },
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
     {},
     {}
   ],
-  "total_pnl": 98.56,
-  "winning_trades": 21,
+  "total_pnl": 0.0,
+  "winning_trades": 2,
   "losing_trades": 0,
   "best_trade": {
-    "asset": "BTC",
-    "entry_price": 1002.22,
-    "exit_price": 1034.42,
-    "amount": 769.01,
-    "pnl": 24.71,
-    "withdrawn_to_principal": 4.94,
-    "strategy_used": "Default_Conservative_Strategy",
-    "fusion_confidence": 0.5,
-    "learning_confidence": 0.9750000000000001,
-    "timestamp": "2026-01-12T04:25:44.810041",
-    "stop_loss_price": 972.1534,
-    "take_profit_price": 1062.3532,
-    "risk_metrics": {
-      "kelly_pct": 23.33,
-      "risk_reward_ratio": 2.0,
-      "position_size_pct": 9.974396355825801
-    },
-    "performance_pct": 0.0032061046424636296
+    "performance_pct": 0.0
   },
   "worst_trade": {
     "performance_pct": 0.0
   },
   "strategies_used": {
-    "Default_Conservative_Strategy": {
-      "count": 4,
-      "wins": 4,
-      "win_rate": 1.0
-    },
     "Moderate_Balanced_Strategy": {
-      "count": 11,
-      "wins": 11,
-      "win_rate": 1.0
-    },
-    "Strat\u00e9gie par d\u00e9faut": {
-      "count": 6,
-      "wins": 6,
+      "count": 2,
+      "wins": 2,
       "win_rate": 1.0
     }
   },

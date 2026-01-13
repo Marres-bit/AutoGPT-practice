@@ -1222,5 +1222,113 @@
       "principal": 3195.05,
       "investment": 7752.97
     }
+  },
+  {
+    "timestamp": "2026-01-12T19:20:40.315522",
+    "trade": {},
+    "market": {
+      "BTC": 0.995,
+      "ETH": -1.894,
+      "SOL": 0.95,
+      "BNB": -0.096
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-12T19:20:49.780028",
+    "trade": {},
+    "market": {
+      "BTC": 0.991,
+      "ETH": -1.896,
+      "SOL": 0.936,
+      "BNB": -0.098
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-12T21:21:00.208113",
+    "trade": {},
+    "market": {
+      "BTC": 0.821,
+      "ETH": -0.32,
+      "SOL": 1.164,
+      "BNB": 1.328
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-12T23:21:09.962071",
+    "trade": {},
+    "market": {
+      "BTC": 0.214,
+      "ETH": -0.868,
+      "SOL": -0.381,
+      "BNB": 0.111
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T01:21:19.178438",
+    "trade": {},
+    "market": {
+      "BTC": -0.047,
+      "ETH": -1.045,
+      "SOL": -1.612,
+      "BNB": -0.294
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T03:21:28.449336",
+    "trade": {},
+    "market": {
+      "BTC": -1.286,
+      "ETH": -1.824,
+      "SOL": -3.745,
+      "BNB": -0.61
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
   }
 ]
