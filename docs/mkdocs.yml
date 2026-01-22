@@ -63,6 +63,9 @@ nav:
   - Contribute: 
         - Introduction: contribute/index.md
         - Testing: ../../autogpt_platform/backend/TESTING.md
+  
+  - Ressources (Français):
+        - Requêtes Premium GitHub Copilot: GITHUB_COPILOT_REQUETES_PREMIUM.md
     
   # - Challenges:
   #     - Introduction: challenges/introduction.md
