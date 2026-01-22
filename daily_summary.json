@@ -1,22 +1,62 @@
 {
-  "date": "2026-01-13",
+  "date": "2026-01-22",
   "trades": [
-    {},
+    {
+      "asset": "BTC",
+      "entry_price": 89669.7,
+      "exit_price": 91631.45,
+      "amount": 2325.89,
+      "pnl": 50.88,
+      "strategy_used": "Moderate_Balanced_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 0.44999999999999996,
+      "timestamp": "2026-01-22T18:42:12.483908",
+      "stop_loss_price": 87876.31,
+      "take_profit_price": 93256.49,
+      "risk_metrics": {
+        "kelly_pct": 10.0,
+        "risk_reward_ratio": 2.0,
+        "position_size_pct": 29.999987101717146
+      },
+      "withdrawn_to_principal": 10.18
+    },
     {}
   ],
-  "total_pnl": 0.0,
+  "total_pnl": 50.88,
   "winning_trades": 2,
   "losing_trades": 0,
   "best_trade": {
-    "performance_pct": 0.0
+    "asset": "BTC",
+    "entry_price": 89669.7,
+    "exit_price": 91631.45,
+    "amount": 2325.89,
+    "pnl": 50.88,
+    "strategy_used": "Moderate_Balanced_Strategy",
+    "fusion_confidence": 0.5,
+    "learning_confidence": 0.44999999999999996,
+    "timestamp": "2026-01-22T18:42:12.483908",
+    "stop_loss_price": 87876.31,
+    "take_profit_price": 93256.49,
+    "risk_metrics": {
+      "kelly_pct": 10.0,
+      "risk_reward_ratio": 2.0,
+      "position_size_pct": 29.999987101717146
+    },
+    "withdrawn_to_principal": 10.18,
+    "performance_pct": 2.439563991128773e-05
   },
   "worst_trade": {
     "performance_pct": 0.0
   },
   "strategies_used": {
+    "Strat\u00e9gie par d\u00e9faut": {
+      "count": 1,
+      "wins": 1,
+      "win_rate": 1.0
+    },
     "Moderate_Balanced_Strategy": {
-      "count": 2,
-      "wins": 2,
+      "count": 1,
+      "wins": 1,
       "win_rate": 1.0
     }
   },

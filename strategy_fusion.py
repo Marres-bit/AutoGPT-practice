@@ -54,7 +54,7 @@ class StrategyFusionEngine:
             "last_fusion_date": None,
             "fusion_parameters": {
                 "risk_multiplier": 1.0,
-                "confidence_threshold": 0.6,
+                "confidence_threshold": 0.45,  # Réduit de 0.6 à 0.45 pour plus de trades
                 "min_strategies_to_fuse": 2
             }
         }
@@ -559,7 +559,7 @@ class StrategyFusionEngine:
         asset_movement = market.get(asset, 0)
         
         # Règle basique: entrée si mouvement positif suffisant
-        min_gain = current_strategy.get("risk_parameters", {}).get("min_gain_threshold", 0.8)
+        min_gain = current_strategy.get("risk_parameters", {}).get("min_gain_threshold", 0.5)
         
         if asset_movement >= min_gain:
             signals["action"] = "OPEN_LONG"

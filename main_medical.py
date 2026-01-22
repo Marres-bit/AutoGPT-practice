@@ -16,7 +16,7 @@ from medical_agent.scheduler import test_scheduler
 
 
 def main():
-    parser = argparse.ArgumentParser(description="🧠 MediGenius AI + 🔥 GEIS - Dual Mode Agent")
+    parser = argparse.ArgumentParser(description="🧠 MediGenius AI + 🔥 GEIS + 💼 CV-PDI - Triple Mode Agent")
     parser.add_argument("--test-scheduler", action="store_true", 
                        help="Tester le scheduler (génère une leçon test)")
     parser.add_argument("--generate", type=int, metavar="N",
@@ -34,14 +34,100 @@ def main():
     parser.add_argument("--geis-config", action="store_true",
                        help="🔥 Afficher la configuration GEIS")
     
+    # === NOUVEAUX ARGUMENTS CV-PDI ===
+    parser.add_argument("--cv-scan", action="store_true",
+                       help="💼 Traiter tous les CV en attente dans le dossier Bureau/CV")
+    parser.add_argument("--cv-daemon", action="store_true",
+                       help="💼 Activer CV-PDI en mode daemon (scan toutes les 5 min)")
+    parser.add_argument("--cv-config", action="store_true",
+                       help="💼 Afficher la configuration CV Perfection")
+    parser.add_argument("--cv-stats", action="store_true",
+                       help="💼 Afficher les statistiques de traitement CV")
+    
     args = parser.parse_args()
     
     try:
         print("="*70)
-        print("🧠 MEDIGENIUS AI + 🔥 GEIS - DUAL MODE AGENT")
-        print("   Medical Intelligence + Global Extreme Insanity Scanner")
+        print("🧠 MEDIGENIUS AI + 🔥 GEIS + 💼 CV-PDI - TRIPLE MODE AGENT")
+        print("   Medical Intelligence + Insanity Scanner + CV Perfection")
         print("="*70)
         print()
+        
+        # === CV-PDI COMMANDS ===
+        if args.cv_config:
+            print("💼 CONFIGURATION CV PERFECTION MODULE\n")
+            from cv_perfection import CVConfig
+            config = CVConfig()
+            print(f"📁 Dossier d'entrée: {config.input_path}")
+            print(f"📁 Dossier de sortie: {config.output_path}")
+            print(f"📄 Formats supportés: {', '.join(config.supported_formats)}")
+            print(f"⏰ Intervalle scan: {config.scan_interval_minutes} min")
+            print(f"🎨 Styles disponibles: {', '.join(config.available_styles)}")
+            print(f"🎨 Style par défaut: {config.default_style}")
+            print(f"🤖 Modèle IA: {config.openai_model}")
+            print(f"🔒 Ne jamais inventer données: {config.never_invent_data}")
+            return
+        
+        if args.cv_stats:
+            print("💼 STATISTIQUES CV PERFECTION\n")
+            from cv_perfection import CVScanner, CVConfig
+            config = CVConfig()
+            scanner = CVScanner(config)
+            stats = scanner.get_statistics()
+            
+            print(f"📊 Total traités: {stats['total_processed']}")
+            print(f"  ✅ Succès: {stats['successful']}")
+            print(f"  ❌ Échecs: {stats['failed']}")
+            print(f"\n📁 Cache: {stats['cache_file']}")
+            return
+        
+        if args.cv_scan:
+            print("💼 TRAITEMENT CV EN ATTENTE\n")
+            from cv_perfection import CVProcessor
+            processor = CVProcessor()
+            stats = processor.process_all_pending()
+            
+            print("\n📊 RÉSUMÉ:")
+            print(f"  Total: {stats['processed']}")
+            print(f"  Succès: ✅ {stats['successful']}")
+            print(f"  Échecs: ❌ {stats['failed']}")
+            return
+        
+        if args.cv_daemon:
+            print("💼 MODE DAEMON CV PERFECTION ACTIVÉ\n")
+            from cv_perfection import CVProcessor, CVConfig
+            import time
+            import schedule
+            
+            processor = CVProcessor()
+            config = CVConfig()
+            
+            def run_cv_scan():
+                print(f"\n[{time.strftime('%Y-%m-%d %H:%M:%S')}] 💼 Scan CV...")
+                stats = processor.process_all_pending()
+                if stats['processed'] > 0:
+                    print(f"✅ {stats['successful']} CV traités avec succès\n")
+                else:
+                    print("✅ Aucun nouveau CV\n")
+            
+            # Planifier scan toutes les 5 minutes
+            schedule.every(config.scan_interval_minutes).minutes.do(run_cv_scan)
+            
+            # Premier scan immédiat
+            run_cv_scan()
+            
+            print(f"⏰ Scan automatique toutes les {config.scan_interval_minutes} minutes")
+            print(f"📁 Dossier surveillé: {config.input_path}")
+            print("💡 Déposez vos CV dans le dossier Bureau/CV")
+            print("💡 Appuyez sur Ctrl+C pour arrêter\n")
+            
+            try:
+                while True:
+                    schedule.run_pending()
+                    time.sleep(30)  # Vérifier toutes les 30s
+            except KeyboardInterrupt:
+                print("\n⏸️ Arrêt CV-PDI daemon")
+            return
         
         # === GEIS COMMANDS ===
         if args.geis_config:

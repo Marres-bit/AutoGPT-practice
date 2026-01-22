@@ -298,10 +298,22 @@ class AutonomousScheduler:
             trade = None
             justifications = []
             
+            # 🔍 DEBUG: Logger toutes les conditions
+            _log(f"TRADE_CONDITIONS_CHECK:")
+            _log(f"  trading_signals.action = {trading_signals.get('action')}")
+            _log(f"  trading_signals.confidence = {trading_signals.get('confidence', 0)}")
+            _log(f"  best_choice = {best_choice}")
+            if best_choice:
+                _log(f"  best_choice.should_trade = {best_choice.get('should_trade')}")
+                _log(f"  best_choice.asset = {best_choice.get('asset')}")
+            _log(f"  capital.investment = {capital['investment']}")
+            
             # Combiner signaux de fusion, apprentissage ET multi-timeframe
             if (trading_signals.get("action") == "OPEN_LONG" and 
                 best_choice and best_choice.get("should_trade") and 
                 capital["investment"] > 0):
+                
+                _log("✅ CONDITIONS PRINCIPALES VALIDÉES")
                 
                 # ⚠️ VALIDATION RISK MANAGER (prioritaire)
                 can_trade, risk_reason = self.risk_manager.can_trade()
@@ -311,7 +323,7 @@ class AutonomousScheduler:
                     _log(f"TRADE_BLOCKED_RISK: {risk_reason}")
                     self.logger.warning("Trade bloqué par Risk Manager", reason=risk_reason, capital=capital["investment"])
                     print(f"⚠️ Trade bloqué: {risk_reason}")
-                elif trading_signals.get("confidence", 0) > 0.5:
+                elif trading_signals.get("confidence", 0) > 0.4:  # Réduit de 0.5 à 0.4 pour plus de trades
                     # Double validation apprentissage
                     should_trade, reason = self.learning_engine.should_trade(
                         best_choice["asset"],
@@ -405,6 +417,27 @@ class AutonomousScheduler:
                             
                             _log(f"PRICE_REAL: {asset} entrée={entry_price:.2f} sortie={exit_price:.2f} qty={quantity:.6f}")
                             _log(f"TRADE_SOURCE: Prix réels Binance Testnet utilisés")
+                            
+                            # ✅ CRÉER LE TRADE AVANT DE L'UTILISER
+                            trade = {
+                                "asset": asset,
+                                "entry_price": entry_price,
+                                "exit_price": exit_price,
+                                "amount": amount,
+                                "pnl": pnl,
+                                "strategy_used": strategy_name,
+                                "fusion_confidence": current_strategy.get("confidence", 0),
+                                "learning_confidence": best_choice.get("confidence", 0),
+                                "timestamp": datetime.utcnow().isoformat(),
+                                "stop_loss_price": stop_loss_price,
+                                "take_profit_price": take_profit_price,
+                                "risk_metrics": {
+                                    "kelly_pct": risk_metrics.kelly_percentage,
+                                    "risk_reward_ratio": risk_metrics.risk_reward_ratio,
+                                    "position_size_pct": (amount / capital["investment"] * 100)
+                                }
+                            }
+                            
                         except Exception as e:
                             # 🚨 ÉCHEC CRITIQUE: Impossible d'obtenir les prix réels
                             _log(f"ERROR_CRITICAL: Impossible récupérer prix réels pour {asset}: {e}")
@@ -435,6 +468,9 @@ class AutonomousScheduler:
                                 capital["investment"] = round(capital["investment"] - withdrawn, 2)
                                 capital["principal"] = round(capital["principal"] + withdrawn, 2)
                             
+                            # Ajouter withdrawn au dictionnaire trade
+                            trade["withdrawn_to_principal"] = withdrawn
+                            
                             # Logger clôture trade
                             self.logger.log_trade_close(
                                 asset=asset,
@@ -443,26 +479,6 @@ class AutonomousScheduler:
                                 pnl_pct=(pnl / amount * 100) if amount > 0 else 0,
                                 duration_seconds=random.randint(3600, 14400)  # Simulated
                             )
-                            
-                            trade = {
-                                "asset": asset,
-                                "entry_price": entry_price,
-                                "exit_price": exit_price,
-                                "amount": amount,
-                                "pnl": pnl,
-                                "withdrawn_to_principal": withdrawn,
-                                "strategy_used": strategy_name,
-                                "fusion_confidence": current_strategy.get("confidence", 0),
-                                "learning_confidence": best_choice.get("confidence", 0),
-                                "timestamp": datetime.utcnow().isoformat(),
-                                "stop_loss_price": stop_loss_price,
-                                "take_profit_price": take_profit_price,
-                                "risk_metrics": {
-                                    "kelly_pct": risk_metrics.kelly_percentage,
-                                    "risk_reward_ratio": risk_metrics.risk_reward_ratio,
-                                    "position_size_pct": (amount / capital["investment"] * 100)
-                                }
-                            }
                             
                             justifications.extend([
                                 f"Stratégie fusionnée ({strategy_name}) recommande LONG",
@@ -487,8 +503,26 @@ class AutonomousScheduler:
                 _log(f"DECISION: AVOID - {justifications[-1]}")
             else:
                 decision = "HOLD"
-                justifications.append("Aucun signal de trading valide")
-                _log("DECISION: HOLD")
+                # 🔍 DEBUG: Expliquer pourquoi on ne trade pas
+                if trading_signals.get("action") != "OPEN_LONG":
+                    reason = f"Action non LONG: {trading_signals.get('action')}"
+                    justifications.append(reason)
+                    _log(f"DECISION: HOLD - {reason}")
+                elif not best_choice:
+                    reason = "Pas de best_choice de l'apprentissage"
+                    justifications.append(reason)
+                    _log(f"DECISION: HOLD - {reason}")
+                elif not best_choice.get("should_trade"):
+                    reason = f"Apprentissage dit should_trade=False"
+                    justifications.append(reason)
+                    _log(f"DECISION: HOLD - {reason}")
+                elif capital["investment"] <= 0:
+                    reason = f"Capital insuffisant: {capital['investment']}"
+                    justifications.append(reason)
+                    _log(f"DECISION: HOLD - {reason}")
+                else:
+                    justifications.append("Aucun signal de trading valide")
+                    _log("DECISION: HOLD - Raison inconnue")
             
             # ═══════════════════════════════════════════════════════
             # 7️⃣ ANALYSE POST-TRADE & APPRENTISSAGE

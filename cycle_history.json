@@ -1,617 +1,5 @@
 [
   {
-    "timestamp": "2026-01-10T17:57:41.185329",
-    "trade": {
-      "asset": "BTC",
-      "entry_price": 998.95,
-      "exit_price": 1008.24,
-      "amount": 743.59,
-      "pnl": 6.92,
-      "withdrawn_to_principal": 1.38,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.7875000000000001,
-      "timestamp": "2026-01-10T17:57:41.143042"
-    },
-    "market": {
-      "BTC": 1.36,
-      "ETH": 1.45,
-      "SOL": -1.62
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 6.92,
-    "win_rate": 0.667,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3117.16,
-      "investment": 7441.44
-    }
-  },
-  {
-    "timestamp": "2026-01-11T01:54:31.254607",
-    "trade": {
-      "asset": "BTC",
-      "entry_price": 1004.89,
-      "exit_price": 1052.28,
-      "amount": 744.14,
-      "pnl": 35.09,
-      "withdrawn_to_principal": 7.02,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.935,
-      "timestamp": "2026-01-11T01:54:31.187633"
-    },
-    "market": {
-      "BTC": 2.8,
-      "ETH": -1.56,
-      "SOL": 2.08
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 35.09,
-    "win_rate": 0.692,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3124.18,
-      "investment": 7469.51
-    }
-  },
-  {
-    "timestamp": "2026-01-11T01:54:31.313799",
-    "trade": {
-      "asset": "BTC",
-      "entry_price": 1008.59,
-      "exit_price": 1037.46,
-      "amount": 746.95,
-      "pnl": 21.38,
-      "withdrawn_to_principal": 4.28,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9775,
-      "timestamp": "2026-01-11T01:54:31.272040"
-    },
-    "market": {
-      "BTC": 2.89,
-      "ETH": 0.95,
-      "SOL": 1.1
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 21.38,
-    "win_rate": 0.714,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3128.46,
-      "investment": 7486.61
-    }
-  },
-  {
-    "timestamp": "2026-01-11T02:13:27.894122",
-    "trade": {
-      "asset": "BTC",
-      "entry_price": 1007.97,
-      "exit_price": 1036.84,
-      "amount": 748.66,
-      "pnl": 21.44,
-      "withdrawn_to_principal": 4.29,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 1,
-      "timestamp": "2026-01-11T02:13:27.839231"
-    },
-    "market": {
-      "BTC": 2.08,
-      "ETH": 0.98,
-      "SOL": -1.8
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 21.44,
-    "win_rate": 0.733,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3132.75,
-      "investment": 7503.76
-    }
-  },
-  {
-    "timestamp": "2026-01-11T02:33:04.988030",
-    "trade": {
-      "asset": "ETH",
-      "entry_price": 1001.47,
-      "exit_price": 1016.98,
-      "amount": 750.38,
-      "pnl": 11.62,
-      "withdrawn_to_principal": 2.32,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 1,
-      "timestamp": "2026-01-11T02:33:04.943329"
-    },
-    "market": {
-      "BTC": 0.07,
-      "ETH": 2.03,
-      "SOL": 2.57
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 11.62,
-    "win_rate": 0.75,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3135.07,
-      "investment": 7513.06
-    }
-  },
-  {
-    "timestamp": "2026-01-11T02:33:27.373419",
-    "trade": {
-      "asset": "BTC",
-      "entry_price": 996.51,
-      "exit_price": 1018.42,
-      "amount": 751.31,
-      "pnl": 16.52,
-      "withdrawn_to_principal": 3.3,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T02:33:27.330920"
-    },
-    "market": {
-      "BTC": 1.11,
-      "ETH": 1.3,
-      "SOL": -0.19
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 16.52,
-    "win_rate": 0.765,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3138.37,
-      "investment": 7526.28
-    }
-  },
-  {
-    "timestamp": "2026-01-11T03:19:23.533902",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 911.55,
-      "exit_price": 922.42,
-      "amount": 752.63,
-      "pnl": 8.97,
-      "withdrawn_to_principal": 1.79,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T03:19:23.470364"
-    },
-    "market": {
-      "BTC": 0.059,
-      "ETH": 0.369,
-      "SOL": -0.037,
-      "BNB": 1.183
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 8.97,
-    "win_rate": 0.778,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3140.16,
-      "investment": 7533.46
-    }
-  },
-  {
-    "timestamp": "2026-01-11T07:32:40.411914",
-    "trade": {},
-    "market": {
-      "BTC": 0.136,
-      "ETH": 0.118,
-      "SOL": 0.051,
-      "BNB": 0.652
-    },
-    "decision": "HOLD",
-    "pnl": 0,
-    "win_rate": 0.778,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3140.16,
-      "investment": 7533.46
-    }
-  },
-  {
-    "timestamp": "2026-01-11T09:04:47.509264",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 917.55,
-      "exit_price": 949.58,
-      "amount": 753.35,
-      "pnl": 26.3,
-      "withdrawn_to_principal": 5.26,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T09:04:47.441115"
-    },
-    "market": {
-      "BTC": 0.146,
-      "ETH": 0.462,
-      "SOL": 0.301,
-      "BNB": 1.648
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 26.3,
-    "win_rate": 0.789,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3145.42,
-      "investment": 7554.5
-    }
-  },
-  {
-    "timestamp": "2026-01-11T09:08:11.701438",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 917.54,
-      "exit_price": 934.18,
-      "amount": 755.45,
-      "pnl": 13.7,
-      "withdrawn_to_principal": 2.74,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T09:08:11.648185"
-    },
-    "market": {
-      "BTC": 0.127,
-      "ETH": 0.431,
-      "SOL": 0.257,
-      "BNB": 1.369
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 13.7,
-    "win_rate": 0.8,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3148.16,
-      "investment": 7565.46
-    }
-  },
-  {
-    "timestamp": "2026-01-11T09:08:14.471093",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 917.54,
-      "exit_price": 923.61,
-      "amount": 756.55,
-      "pnl": 5.0,
-      "withdrawn_to_principal": 1.0,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T09:08:14.427290"
-    },
-    "market": {
-      "BTC": 0.127,
-      "ETH": 0.431,
-      "SOL": 0.25,
-      "BNB": 1.363
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 5.0,
-    "win_rate": 0.81,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3149.16,
-      "investment": 7569.46
-    }
-  },
-  {
-    "timestamp": "2026-01-11T09:08:54.361571",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 916.45,
-      "exit_price": 926.14,
-      "amount": 756.95,
-      "pnl": 8.0,
-      "withdrawn_to_principal": 1.6,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T09:08:54.222813"
-    },
-    "market": {
-      "BTC": 0.127,
-      "ETH": 0.43,
-      "SOL": 0.242,
-      "BNB": 1.344
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 8.0,
-    "win_rate": 0.818,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3150.76,
-      "investment": 7575.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T09:08:57.230919",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 916.5,
-      "exit_price": 922.59,
-      "amount": 757.59,
-      "pnl": 5.03,
-      "withdrawn_to_principal": 1.01,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T09:08:57.099460"
-    },
-    "market": {
-      "BTC": 0.121,
-      "ETH": 0.408,
-      "SOL": 0.242,
-      "BNB": 1.344
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 5.03,
-    "win_rate": 0.826,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3151.77,
-      "investment": 7579.88
-    }
-  },
-  {
-    "timestamp": "2026-01-11T10:02:21.945705",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 992.71,
-      "exit_price": 1017.04,
-      "amount": 757.99,
-      "pnl": 18.58,
-      "withdrawn_to_principal": 3.72,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T10:02:21.900647",
-      "stop_loss_price": 962.9287,
-      "take_profit_price": 1052.2726,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.980460160584826
-      }
-    },
-    "market": {
-      "BTC": -0.015,
-      "ETH": 0.307,
-      "SOL": 0.0,
-      "BNB": 1.316
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 18.58,
-    "win_rate": 0.84,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3155.49,
-      "investment": 7594.74
-    }
-  },
-  {
-    "timestamp": "2026-01-11T10:02:25.723833",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 1007.55,
-      "exit_price": 1029.77,
-      "amount": 759.47,
-      "pnl": 16.75,
-      "withdrawn_to_principal": 3.35,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T10:02:25.671282",
-      "stop_loss_price": 977.3235,
-      "take_profit_price": 1068.003,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.982334709929102
-      }
-    },
-    "market": {
-      "BTC": -0.015,
-      "ETH": 0.308,
-      "SOL": 0.007,
-      "BNB": 1.315
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 16.75,
-    "win_rate": 0.846,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3158.84,
-      "investment": 7608.14
-    }
-  },
-  {
-    "timestamp": "2026-01-11T12:02:29.257006",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 1009.52,
-      "exit_price": 1039.72,
-      "amount": 760.81,
-      "pnl": 22.76,
-      "withdrawn_to_principal": 4.55,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T12:02:29.111554",
-      "stop_loss_price": 979.2343999999999,
-      "take_profit_price": 1070.0912,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.97606981059091
-      }
-    },
-    "market": {
-      "BTC": 0.026,
-      "ETH": 0.249,
-      "SOL": -0.095,
-      "BNB": 1.306
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 22.76,
-    "win_rate": 0.852,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3163.39,
-      "investment": 7626.35
-    }
-  },
-  {
-    "timestamp": "2026-01-11T14:02:32.601876",
-    "trade": {
-      "asset": "BNB",
-      "entry_price": 1006.13,
-      "exit_price": 1015.22,
-      "amount": 762.64,
-      "pnl": 6.89,
-      "withdrawn_to_principal": 1.38,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T14:02:32.476808",
-      "stop_loss_price": 975.9461,
-      "take_profit_price": 1066.4978,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.992845780714008
-      }
-    },
-    "market": {
-      "BTC": 0.224,
-      "ETH": 0.506,
-      "SOL": 0.719,
-      "BNB": 1.264
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 6.89,
-    "win_rate": 0.857,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3164.77,
-      "investment": 7631.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T16:02:35.858168",
-    "trade": {},
-    "market": {
-      "BTC": 0.304,
-      "ETH": 0.737,
-      "SOL": 1.43,
-      "BNB": -0.098
-    },
-    "decision": "HOLD",
-    "pnl": 0,
-    "win_rate": 0.857,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3164.77,
-      "investment": 7631.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T18:02:39.056939",
-    "trade": {},
-    "market": {
-      "BTC": 0.41,
-      "ETH": 0.372,
-      "SOL": 2.49,
-      "BNB": -0.008
-    },
-    "decision": "HOLD",
-    "pnl": 0,
-    "win_rate": 0.857,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3164.77,
-      "investment": 7631.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T20:02:42.199848",
-    "trade": {},
-    "market": {
-      "BTC": 0.049,
-      "ETH": 0.748,
-      "SOL": 2.203,
-      "BNB": -0.619
-    },
-    "decision": "HOLD",
-    "pnl": 0,
-    "win_rate": 0.857,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3164.77,
-      "investment": 7631.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T22:02:45.458374",
-    "trade": {},
-    "market": {
-      "BTC": 0.154,
-      "ETH": 0.146,
-      "SOL": 2.027,
-      "BNB": -0.13
-    },
-    "decision": "HOLD",
-    "pnl": 0,
-    "win_rate": 0.857,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3164.77,
-      "investment": 7631.86
-    }
-  },
-  {
-    "timestamp": "2026-01-11T22:09:09.597574",
-    "trade": {
-      "asset": "ETH",
-      "entry_price": 1001.0,
-      "exit_price": 1012.61,
-      "amount": 763.19,
-      "pnl": 8.85,
-      "withdrawn_to_principal": 1.77,
-      "strategy_used": "Default_Conservative_Strategy",
-      "fusion_confidence": 0.5,
-      "learning_confidence": 0.9750000000000001,
-      "timestamp": "2026-01-11T22:09:09.547418",
-      "stop_loss_price": 970.97,
-      "take_profit_price": 1061.06,
-      "risk_metrics": {
-        "kelly_pct": 23.33,
-        "risk_reward_ratio": 2.0,
-        "position_size_pct": 9.990784061663007
-      }
-    },
-    "market": {
-      "BTC": 0.155,
-      "ETH": 1.514,
-      "SOL": 1.837,
-      "BNB": -0.285
-    },
-    "decision": "OPEN_LONG",
-    "pnl": 8.85,
-    "win_rate": 0.862,
-    "strategy": "Default_Conservative_Strategy",
-    "capital": {
-      "principal": 3166.54,
-      "investment": 7638.94
-    }
-  },
-  {
     "timestamp": "2026-01-11T22:10:48.063346",
     "trade": {},
     "market": {
@@ -1329,6 +717,1248 @@
     "capital": {
       "principal": 3195.05,
       "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T04:42:25.277285",
+    "trade": {},
+    "market": {
+      "BTC": -0.891,
+      "ETH": -1.446,
+      "SOL": -3.016,
+      "BNB": -0.041
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T04:42:34.529872",
+    "trade": {},
+    "market": {
+      "BTC": -0.891,
+      "ETH": -1.44,
+      "SOL": -3.016,
+      "BNB": -0.037
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T05:16:46.840176",
+    "trade": {},
+    "market": {
+      "BTC": -0.402,
+      "ETH": -0.811,
+      "SOL": -2.251,
+      "BNB": 0.219
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T05:16:56.594140",
+    "trade": {},
+    "market": {
+      "BTC": -0.402,
+      "ETH": -0.838,
+      "SOL": -2.251,
+      "BNB": 0.211
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T07:17:06.328595",
+    "trade": {},
+    "market": {
+      "BTC": 0.117,
+      "ETH": -0.935,
+      "SOL": -1.385,
+      "BNB": 0.778
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T09:17:17.699528",
+    "trade": {},
+    "market": {
+      "BTC": 1.784,
+      "ETH": 0.634,
+      "SOL": 1.473,
+      "BNB": 0.932
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T11:17:28.399484",
+    "trade": {},
+    "market": {
+      "BTC": 1.84,
+      "ETH": 0.847,
+      "SOL": 1.728,
+      "BNB": 1.026
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T13:17:38.606935",
+    "trade": {},
+    "market": {
+      "BTC": 1.527,
+      "ETH": 0.842,
+      "SOL": 1.539,
+      "BNB": 1.18
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T15:17:48.881305",
+    "trade": {},
+    "market": {
+      "BTC": 1.657,
+      "ETH": 1.354,
+      "SOL": 0.883,
+      "BNB": 1.215
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T17:17:58.971405",
+    "trade": {},
+    "market": {
+      "BTC": 1.351,
+      "ETH": 1.561,
+      "SOL": -0.098,
+      "BNB": 1.379
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T19:18:09.300237",
+    "trade": {},
+    "market": {
+      "BTC": 1.956,
+      "ETH": 2.623,
+      "SOL": 1.466,
+      "BNB": 3.864
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T21:18:19.699513",
+    "trade": {},
+    "market": {
+      "BTC": 3.302,
+      "ETH": 3.476,
+      "SOL": 2.959,
+      "BNB": 3.929
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-13T23:18:29.654137",
+    "trade": {},
+    "market": {
+      "BTC": 4.915,
+      "ETH": 7.908,
+      "SOL": 6.062,
+      "BNB": 4.533
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T01:18:42.704744",
+    "trade": {},
+    "market": {
+      "BTC": 4.409,
+      "ETH": 7.198,
+      "SOL": 4.505,
+      "BNB": 4.72
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T03:18:52.957034",
+    "trade": {},
+    "market": {
+      "BTC": 4.567,
+      "ETH": 7.042,
+      "SOL": 5.237,
+      "BNB": 4.711
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T05:19:03.025560",
+    "trade": {},
+    "market": {
+      "BTC": 3.672,
+      "ETH": 6.403,
+      "SOL": 3.856,
+      "BNB": 3.619
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T07:19:15.422456",
+    "trade": {},
+    "market": {
+      "BTC": 3.429,
+      "ETH": 6.591,
+      "SOL": 3.267,
+      "BNB": 2.732
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T09:19:26.342475",
+    "trade": {},
+    "market": {
+      "BTC": 2.985,
+      "ETH": 6.155,
+      "SOL": 2.538,
+      "BNB": 2.983
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T11:19:37.435362",
+    "trade": {},
+    "market": {
+      "BTC": 2.891,
+      "ETH": 4.967,
+      "SOL": 1.395,
+      "BNB": 2.34
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T13:19:46.932567",
+    "trade": {},
+    "market": {
+      "BTC": 3.159,
+      "ETH": 5.116,
+      "SOL": 1.727,
+      "BNB": 2.578
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T15:19:57.849066",
+    "trade": {},
+    "market": {
+      "BTC": 4.854,
+      "ETH": 6.777,
+      "SOL": 3.788,
+      "BNB": 3.498
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T17:20:07.210599",
+    "trade": {},
+    "market": {
+      "BTC": 4.766,
+      "ETH": 6.297,
+      "SOL": 3.331,
+      "BNB": 3.055
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T19:20:17.155670",
+    "trade": {},
+    "market": {
+      "BTC": 3.726,
+      "ETH": 4.8,
+      "SOL": 2.35,
+      "BNB": 0.165
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T21:20:27.981914",
+    "trade": {},
+    "market": {
+      "BTC": 3.344,
+      "ETH": 5.147,
+      "SOL": 2.105,
+      "BNB": 0.37
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-14T23:20:38.778163",
+    "trade": {},
+    "market": {
+      "BTC": 1.654,
+      "ETH": 0.803,
+      "SOL": -0.034,
+      "BNB": 0.385
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-15T01:20:48.443058",
+    "trade": {},
+    "market": {
+      "BTC": 1.327,
+      "ETH": 0.062,
+      "SOL": 0.247,
+      "BNB": -1.15
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-15T03:49:34.825127",
+    "trade": {},
+    "market": {
+      "BTC": 0.39,
+      "ETH": -1.612,
+      "SOL": -1.808,
+      "BNB": -2.081
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-15T03:49:51.012785",
+    "trade": {},
+    "market": {
+      "BTC": 0.377,
+      "ETH": -1.618,
+      "SOL": -1.822,
+      "BNB": -2.084
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-16T04:46:48.722542",
+    "trade": {},
+    "market": {
+      "BTC": -0.6154037089718631,
+      "ETH": -3.4918736010919913,
+      "SOL": -3.3062927806915887,
+      "BNB": 4.425759670616934
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-16T04:48:22.461977",
+    "trade": {},
+    "market": {
+      "BTC": -4.272420330385717,
+      "ETH": -3.7756169544869502,
+      "SOL": 2.999373306391858,
+      "BNB": 0.45545102094224266
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-16T04:48:25.846137",
+    "trade": {},
+    "market": {
+      "BTC": -4.683142366778357,
+      "ETH": 2.579841683614262,
+      "SOL": -0.9456859622962108,
+      "BNB": 0.36913914078484567
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T09:22:36.174721",
+    "trade": {},
+    "market": {
+      "BTC": -0.453,
+      "ETH": -0.421,
+      "SOL": 0.798,
+      "BNB": 0.151
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T09:22:45.186641",
+    "trade": {},
+    "market": {
+      "BTC": -0.453,
+      "ETH": -0.421,
+      "SOL": 0.798,
+      "BNB": 0.151
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T11:22:55.795149",
+    "trade": {},
+    "market": {
+      "BTC": -0.145,
+      "ETH": 0.076,
+      "SOL": 0.658,
+      "BNB": 1.017
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T13:23:07.199370",
+    "trade": {},
+    "market": {
+      "BTC": -0.214,
+      "ETH": -0.187,
+      "SOL": 0.349,
+      "BNB": 0.875
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T15:23:16.633047",
+    "trade": {},
+    "market": {
+      "BTC": 0.644,
+      "ETH": 0.863,
+      "SOL": 1.054,
+      "BNB": 1.851
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T17:23:28.607181",
+    "trade": {},
+    "market": {
+      "BTC": 0.595,
+      "ETH": 1.487,
+      "SOL": 1.517,
+      "BNB": 2.651
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T19:23:40.085996",
+    "trade": {},
+    "market": {
+      "BTC": 0.469,
+      "ETH": 1.339,
+      "SOL": 0.671,
+      "BNB": 2.483
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T21:23:50.889339",
+    "trade": {},
+    "market": {
+      "BTC": -0.015,
+      "ETH": 0.701,
+      "SOL": -0.338,
+      "BNB": 2.034
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-17T23:24:01.650566",
+    "trade": {},
+    "market": {
+      "BTC": -0.378,
+      "ETH": 0.251,
+      "SOL": -0.911,
+      "BNB": 0.97
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T01:24:13.257072",
+    "trade": {},
+    "market": {
+      "BTC": -0.509,
+      "ETH": 0.321,
+      "SOL": -1.583,
+      "BNB": 0.801
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T03:24:23.985102",
+    "trade": {},
+    "market": {
+      "BTC": -0.228,
+      "ETH": 0.466,
+      "SOL": -1.385,
+      "BNB": 1.184
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T05:24:34.134842",
+    "trade": {},
+    "market": {
+      "BTC": -0.234,
+      "ETH": 0.738,
+      "SOL": -0.888,
+      "BNB": 1.249
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T07:24:44.219652",
+    "trade": {},
+    "market": {
+      "BTC": -0.055,
+      "ETH": 0.595,
+      "SOL": -0.884,
+      "BNB": 1.089
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T09:24:55.905883",
+    "trade": {},
+    "market": {
+      "BTC": 0.022,
+      "ETH": 0.719,
+      "SOL": -1.132,
+      "BNB": 0.939
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T11:25:05.099862",
+    "trade": {},
+    "market": {
+      "BTC": -0.118,
+      "ETH": 0.584,
+      "SOL": -1.161,
+      "BNB": 0.173
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T13:25:14.910993",
+    "trade": {},
+    "market": {
+      "BTC": -0.4,
+      "ETH": 0.397,
+      "SOL": -1.107,
+      "BNB": 0.462
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T15:25:24.552718",
+    "trade": {},
+    "market": {
+      "BTC": -0.385,
+      "ETH": 0.527,
+      "SOL": -1.183,
+      "BNB": 0.166
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T17:25:33.126384",
+    "trade": {},
+    "market": {
+      "BTC": -0.128,
+      "ETH": 0.351,
+      "SOL": -1.348,
+      "BNB": -0.307
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T19:25:43.073628",
+    "trade": {},
+    "market": {
+      "BTC": 0.089,
+      "ETH": 1.187,
+      "SOL": -0.937,
+      "BNB": -0.16
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T21:25:54.261041",
+    "trade": {},
+    "market": {
+      "BTC": -0.046,
+      "ETH": 0.822,
+      "SOL": -1.192,
+      "BNB": -0.127
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-18T23:26:04.318261",
+    "trade": {},
+    "market": {
+      "BTC": -0.228,
+      "ETH": 0.448,
+      "SOL": -2.061,
+      "BNB": -0.278
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T01:26:12.558118",
+    "trade": {},
+    "market": {
+      "BTC": -2.53,
+      "ETH": -2.791,
+      "SOL": -6.025,
+      "BNB": -2.69
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T03:26:22.243612",
+    "trade": {},
+    "market": {
+      "BTC": -2.693,
+      "ETH": -3.245,
+      "SOL": -6.157,
+      "BNB": -2.848
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T05:26:31.728387",
+    "trade": {},
+    "market": {
+      "BTC": -2.619,
+      "ETH": -3.466,
+      "SOL": -6.529,
+      "BNB": -2.565
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T07:26:44.612854",
+    "trade": {},
+    "market": {
+      "BTC": -2.6,
+      "ETH": -3.256,
+      "SOL": -6.333,
+      "BNB": -2.239
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T09:26:55.625514",
+    "trade": {},
+    "market": {
+      "BTC": -2.28,
+      "ETH": -3.288,
+      "SOL": -6.039,
+      "BNB": -2.199
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T11:27:04.751047",
+    "trade": {},
+    "market": {
+      "BTC": -2.104,
+      "ETH": -2.905,
+      "SOL": -5.886,
+      "BNB": -1.818
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T13:27:11.990630",
+    "trade": {},
+    "market": {
+      "BTC": -2.055,
+      "ETH": -2.987,
+      "SOL": -5.872,
+      "BNB": -2.065
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T15:27:21.249190",
+    "trade": {},
+    "market": {
+      "BTC": -2.103,
+      "ETH": -3.454,
+      "SOL": -5.888,
+      "BNB": -2.183
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T17:27:32.549068",
+    "trade": {},
+    "market": {
+      "BTC": -1.995,
+      "ETH": -3.37,
+      "SOL": -5.416,
+      "BNB": -2.329
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T19:27:42.135701",
+    "trade": {},
+    "market": {
+      "BTC": -2.495,
+      "ETH": -4.043,
+      "SOL": -5.8,
+      "BNB": -2.347
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-19T21:27:51.670065",
+    "trade": {},
+    "market": {
+      "BTC": -2.39,
+      "ETH": -3.787,
+      "SOL": -5.835,
+      "BNB": -2.68
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-20T19:49:23.216844",
+    "trade": {},
+    "market": {
+      "BTC": -3.922,
+      "ETH": -7.147,
+      "SOL": -5.618,
+      "BNB": -3.49
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-20T19:49:32.754033",
+    "trade": {},
+    "market": {
+      "BTC": -3.9,
+      "ETH": -7.136,
+      "SOL": -5.64,
+      "BNB": -3.49
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-20T21:49:43.293090",
+    "trade": {},
+    "market": {
+      "BTC": -3.86,
+      "ETH": -7.023,
+      "SOL": -5.271,
+      "BNB": -3.382
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 0.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3195.05,
+      "investment": 7752.97
+    }
+  },
+  {
+    "timestamp": "2026-01-22T18:42:12.706592",
+    "trade": {
+      "asset": "BTC",
+      "entry_price": 89669.7,
+      "exit_price": 91631.45,
+      "amount": 2325.89,
+      "pnl": 50.88,
+      "strategy_used": "Moderate_Balanced_Strategy",
+      "fusion_confidence": 0.5,
+      "learning_confidence": 0.44999999999999996,
+      "timestamp": "2026-01-22T18:42:12.483908",
+      "stop_loss_price": 87876.31,
+      "take_profit_price": 93256.49,
+      "risk_metrics": {
+        "kelly_pct": 10.0,
+        "risk_reward_ratio": 2.0,
+        "position_size_pct": 29.999987101717146
+      },
+      "withdrawn_to_principal": 10.18
+    },
+    "market": {
+      "BTC": 1.78,
+      "ETH": 1.58,
+      "SOL": 1.046,
+      "BNB": 1.904
+    },
+    "decision": "OPEN_LONG",
+    "pnl": 50.88,
+    "win_rate": 1.0,
+    "strategy": "Strat\u00e9gie par d\u00e9faut",
+    "capital": {
+      "principal": 3205.23,
+      "investment": 7793.67
+    }
+  },
+  {
+    "timestamp": "2026-01-22T18:42:21.374348",
+    "trade": {},
+    "market": {
+      "BTC": 1.761,
+      "ETH": 1.48,
+      "SOL": 0.998,
+      "BNB": 1.88
+    },
+    "decision": "HOLD",
+    "pnl": 0,
+    "win_rate": 1.0,
+    "strategy": "Moderate_Balanced_Strategy",
+    "capital": {
+      "principal": 3205.23,
+      "investment": 7793.67
     }
   }
 ]

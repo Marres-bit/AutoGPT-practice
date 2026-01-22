@@ -48,7 +48,7 @@ class LearningEngine:
         
         # État par défaut avec paramètres d'apprentissage
         return {
-            "min_gain_to_open": 0.5,
+            "min_gain_to_open": 0.4,  # Réduit de 0.5 à 0.4 pour plus de trades
             "consecutive_losses": 0,
             "total_trades": 0,
             "winning_trades": 0,
@@ -405,8 +405,8 @@ class LearningEngine:
         
         # Check 3: Gain minimal absolu (protection contre micro-gains)
         asset_gain = market.get(asset, 0)
-        if asset_gain < 0.3:  # Blocage absolu si <0.3%
-            return False, f"Gain {asset} ({asset_gain}%) trop faible (min absolu: 0.3%)"
+        if asset_gain < 0.2:  # Blocage absolu si <0.2% (réduit pour plus d'opportunités)
+            return False, f"Gain {asset} ({asset_gain}%) trop faible (min absolu: 0.2%)"
         
         # Check 4: Niveau de risque actuel (après pertes)
         risk_level = self.state.get("risk_level", 0.5)
@@ -422,8 +422,8 @@ class LearningEngine:
             return True, f"Gain {asset_gain:.2f}% >= seuil {min_gain:.2f}%"
         
         # Voie 2: Opportunisme intelligent (gain modéré + conditions favorables)
-        # Permet de trader 0.3-0.8% si contexte excellent
-        if asset_gain >= 0.4:  # Entre 0.4% et min_gain
+        # Permet de trader 0.2-0.8% si contexte excellent
+        if asset_gain >= 0.3:  # Entre 0.3% et min_gain (réduit pour plus de trades)
             # Condition 2a: Excellent historique récent
             if win_rate > 0.80 and self.state.get("consecutive_losses", 0) == 0:
                 return True, f"Opportunité: Gain {asset_gain:.2f}% + Win rate excellent ({win_rate:.1%})"
@@ -435,7 +435,7 @@ class LearningEngine:
                 return True, f"Meilleur asset disponible: {asset_gain:.2f}%"
         
         # Rejet avec raison détaillée
-        return False, f"Gain {asset_gain:.2f}% insuffisant (seuil: {min_gain:.2f}%, min opportuniste: 0.4%)"
+        return False, f"Gain {asset_gain:.2f}% insuffisant (seuil: {min_gain:.2f}%, min opportuniste: 0.3%)"
     
     def get_trading_recommendation(self, market: Dict) -> Dict:
         """

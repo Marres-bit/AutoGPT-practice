@@ -1,0 +1,21 @@
+# Requirements supplémentaires pour le module CV Perfection
+# À ajouter à requirements.txt existant ou installer séparément
+
+# Traitement PDF
+PyPDF2>=3.0.0
+
+# Traitement DOCX
+python-docx>=1.0.0
+
+# Génération PDF design
+reportlab>=4.0.0
+
+# API OpenAI (optimisation contenu)
+openai>=1.0.0
+
+# Scheduling (daemon mode)
+schedule>=1.2.0
+
+# Note: Les packages suivants sont probablement déjà installés
+# requests>=2.31.0
+# python-dotenv>=1.0.0

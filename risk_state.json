@@ -1,10 +1,10 @@
 {
-  "winning_trades": 0,
-  "emergency_stop": false,
+  "winning_trades": 1,
+  "emergency_stop": true,
   "losing_trades": 0,
   "consecutive_losses": 0,
-  "total_trades": 0,
-  "current_drawdown_pct": 0.0,
-  "last_update": "2026-01-12T20:02:12.4129851+01:00",
+  "total_trades": 1,
+  "current_drawdown_pct": 0.21961499999999998,
+  "last_update": "2026-01-22T18:42:12.485324",
   "peak_capital": 10000.0
 }
